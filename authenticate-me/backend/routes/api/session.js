@@ -58,7 +58,7 @@ router.post(
     });
   }
 );
-
+// logout
   router.delete(
     '/',
     (_req, res) => {
@@ -66,7 +66,7 @@ router.post(
       return res.json({ message: 'success' });
     }
   );
-  
+  // Restore session
   router.get('/', (req, res) => {
       const { user } = req;
       if (user) {
