@@ -36,15 +36,10 @@ app.use(
       }
     })
     );
-    // ...
-    
-    // backend/app.js
-    // ...
-    const routes = require('./routes');
-    app.use(routes); // Connect all the routes
 
-    // backend/app.js
-// ...
+const routes = require('./routes');
+app.use(routes); // Connect all the routes
+
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
   const err = new Error("The requested resource couldn't be found.");
@@ -53,10 +48,9 @@ app.use((_req, _res, next) => {
   err.status = 404;
   next(err);
 });
-// backend/app.js
-// ...
+
 const { ValidationError } = require('sequelize');
-// ...
+
 // Process sequelize errors
 app.use((err, _req, _res, next) => {
   // check if error is a Sequelize error:
@@ -70,8 +64,7 @@ app.use((err, _req, _res, next) => {
   }
   next(err);
 });
-// backend/app.js
-// ...
+
 // Error formatter
 app.use((err, _req, res, _next) => {
   res.status(err.status || 500);
