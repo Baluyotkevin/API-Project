@@ -34,6 +34,30 @@ module.exports = {
         name: "yes",
         description: 'beautiful',
         price: 2
+      },
+      {
+        ownerId: 1,
+        address: 'wherever you want it to be',
+        city: 'you',
+        state: 'red',
+        country: 'everywhere you go',
+        lat: 23.2,
+        lng: 33.3,
+        name: 'thespot',
+        description: 'thebestspot',
+        price: 999.99
+      },
+      {
+        ownerId: 2,
+        address: '23213 pasdw st.',
+        city: 'Carson',
+        state: 'CA',
+        country: 'North America',
+        lat: 0.1,
+        lng: 0.12,
+        name: "yes",
+        description: 'beautifulspot',
+        price: 5923
       }
     ], {});
     /**
