@@ -16,6 +16,12 @@ module.exports = {
         userId: 1,
         startDate: '2022-01-17',
         endDate: '2023-01-17'
+      },
+      {
+        spotId: 2,
+        userId: 2,
+        startDate: '0000-00-00',
+        endDate: '0001-01-01'
       }
     ], {});
     /**
@@ -33,7 +39,7 @@ module.exports = {
     options.tableName = 'Bookings';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1] }
+      spotId: { [Op.in]: [1, 2] }
     }, {});
     /**
      * Add commands to revert seed here.

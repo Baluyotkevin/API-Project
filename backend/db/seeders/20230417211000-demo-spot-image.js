@@ -15,6 +15,16 @@ module.exports = {
         spotId: 1,
         url: 'asdasd',
         preview: false,
+      },
+      {
+        spotId: 2,
+        url: 'yourlove.com',
+        preview: true
+      },
+      {
+        spotId: 2,
+        url: 'woooooooow.com',
+        preview: true
       }
     ], {});
     /**
@@ -32,7 +42,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1] }
+      spotId: { [Op.in]: [1, 2, 3] }
     }, {})
     /**
      * Add commands to revert seed here.

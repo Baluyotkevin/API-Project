@@ -22,6 +22,18 @@ module.exports = {
         name: 'mynamew',
         description: 'allover',
         price: 333.23
+      },
+      {
+        ownerId: 2,
+        address: 'your heart baby',
+        city: 'you tell me',
+        state: 'wherever you want to go',
+        country: 'next to your heart',
+        lat: 0.1,
+        lng: 0.12,
+        name: "yes",
+        description: 'beautiful',
+        price: 2
       }
     ], {});
     /**
@@ -39,7 +51,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      ownerId: { [Op.in]: [1] }
+      ownerId: { [Op.in]: [1, 2] }
     }, {});
     /**
      * Add commands to revert seed here.

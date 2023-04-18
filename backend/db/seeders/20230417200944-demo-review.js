@@ -15,6 +15,18 @@ module.exports = {
         userId: 1,
         review: 'yasss',
         stars: 5,
+      },
+      {
+        spotId: 2,
+        userId: 2,
+        review: 'the best',
+        stars: 10
+      },
+      {
+        spotId: 2,
+        userId: 2,
+        review: 'so much fun',
+        stars: 4
       }
     ], {});
     /**
@@ -32,7 +44,7 @@ module.exports = {
     options.tableName = 'Reviews';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1]}
+      spotId: { [Op.in]: [1, 2]}
     }, {});
     /**
      * Add commands to revert seed here.
