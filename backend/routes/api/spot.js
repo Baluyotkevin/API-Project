@@ -43,22 +43,24 @@ router.get('/', async (req, res) => {
 
         spotsList.forEach(spot => {
             let imagesArray = [];
-        spot.previewImage.forEach(image => {
-            if(image.preview === true) {
-                image.preview = image.url
-                imagesArray.push(image.preview)
-            }
+            spot.previewImage.forEach(image => {
+                if(image.preview === true) {
+                    image.preview = image.url
+                    imagesArray.push(image.preview)
+                }
+            })
+                spot.previewImage = imagesArray
+                if(!spot.previewImage.length) {
+                    spot.previewImage = 'No images found ;('
+                }
         })
-            spot.previewImage = imagesArray
-            if(!spot.previewImage.length) {
-                spot.previewImage = 'No images found ;('
-            }
-    })
 
     res.status(200).json({
         "Spots": spotsList
     })
-})
+});
+
+
 
 
 module.exports = router;
