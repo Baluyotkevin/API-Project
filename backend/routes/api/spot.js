@@ -69,10 +69,15 @@ router.get('/current', requireAuth, async (req, res) => {
         }
     });
     const allReviews = await Review.findAll();
-    const allImages = await SpotImage.findAll();
     const result = {Spots: []};
-
+    
     for (let spot of allSpots) {
+        const allImages = await SpotImage.findAll({
+            where: {
+                spotId: spot.id
+            }
+        });
+        
         spot = spot.toJSON()
         let total = 0;
         let length = 0;
@@ -83,22 +88,20 @@ router.get('/current', requireAuth, async (req, res) => {
                 length++
             };
         };
-
-        let imagesArray = [];
+        
+ 
         for (let image of allImages) {
-            image = image.toJSON()
-            if(spot.id === image.spotId) {
-                imagesArray.push(image.url)
-            };
+            image = image.toJSON();
+            spot.previewImage = image.url;
         };
 
-        spot.avgRating = total / length
-        spot.previewImages = imagesArray
+        if(!spot.previewImage) {
+            spot.previewImage = 'No images ;( available'
+        };
+
+        spot.avgRating = total / length;
         if(!spot.avgRating) {
             spot.avgRating = 'Has not been rated yet ;('
-        };
-        if(!spot.previewImages.length) {
-            spot.previewImages = 'No images ;( available'
         };
         result.Spots.push(spot);
     };
@@ -116,16 +119,9 @@ router.get('/' , async (req, res) => {
     const where = {};
     const page = req.query.page === undefined ? 1 : parseInt(req.query.page);
     const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
-    // const minLat = req.query.minLat === undefined ? -90 : parseInt(req.query.minLat);
-    // const maxLat = req.query.maxLat === undefined ? 90: parseInt(req.query.maxLat);
     const lat = req.query.lat === undefined ? 90 : parseInt(req.query.lat);
     const lng = req.query.lng === undefined ? 180 : parseInt(req.query.lng);
     const price = req.query.price === undefined ? 999999999 : parseInt(req.query.price);
-    // if (price === undefined) {
-    //     const minPrice = req.query.minPrice === undefined ? 0 : parseInt(req.query.minPrice)
-    //     const maxPrice = req.query.maxPrice === undefined ? 999999999 : parseInt(req.query.maxPrice)
-    //     where.minPrice = [Op]
-    // }
     if (page < 1) errorObj.errors.page = "Page must be greater than or equal to 1";
     if (size < 1) errorObj.errors.size = "Size must be greater than or equal to 1";
     if (lat < -90 || !Number.isInteger(lat)) errorObj.errors.minLat = "Minimum latitude is invalid";
@@ -165,40 +161,42 @@ router.get('/' , async (req, res) => {
         ...query
     });
     const allReviews = await Review.findAll()
-    const allImages = await SpotImage.findAll()
     const result = {Spots: []};
-        result.page = page;
-        result.size = size;
-
-
+    result.page = page;
+    result.size = size;
+    
+    
     for (let spot of allSpots) {
+        const allImages = await SpotImage.findAll({
+            where: {
+                spotId: spot.id
+            }
+        });
         spot = spot.toJSON()
         let total = 0;
         let length = 0;
         for (let review of allReviews) {
             review = review.toJSON()
             if(spot.id === review.spotId) {
-                total += review.stars
-                length++
-            }
-        }
-
-        let imagesArray = [];
-        for (let image of allImages) {
-            image = image.toJSON()
-            if(spot.id === image.spotId) {
-                imagesArray.push(image.url)
-            }
-        }
+                total += review.stars;
+                length++;
+            };
+        };
 
         spot.avgRating = total / length
-        spot.previewImages = imagesArray
         if(!spot.avgRating) {
             spot.avgRating = 'Has not been rated yet ;('
+        };
+
+        for (let image of allImages) {
+            image = image.toJSON();
+            spot.previewImage = image.url;
+        };
+
+        if(!spot.previewImage) {
+            spot.previewImage = 'No images ;( available'
         }
-        if(!spot.previewImages.length) {
-            spot.previewImages = 'No images ;( available'
-        }
+        
         result.Spots.push(spot)
     }
     res.status(200).json(result)
@@ -239,16 +237,11 @@ router.get('/:spotId', async (req, res) => {
         };
 
         let imagesArray = [];
-        // if (allImages.length > 1) {
             for (let image of allImages) {
                 image = image.toJSON()
                 imagesArray.push(image)
             };
-        // } 
-        // else {
-        //     allImages[0] = allImages[0].toJSON()
-        //     imagesArray.push(allImages)
-        // };
+
         oneSpot.numReviews = length;
         oneSpot.avgStarRating = total / length;
         oneSpot.SpotImages = imagesArray;

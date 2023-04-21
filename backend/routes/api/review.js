@@ -56,15 +56,11 @@ router.get('/current', requireAuth, async (req, res) => {
             }
         });
 
-        let imagesArray = [];
-        for (let image of allImages) {
-            image = image.toJSON()
-            if(review.Spot.id === image.spotId) {
-                imagesArray.push(image.url)
-            };
-        };
 
-        review.Spot.previewImage = imagesArray;
+        for (let image of allImages) {
+            image = image.toJSON();
+            review.Spot.previewImage = image.url;
+        };
         allReviewsArr.push(review);
     };
 
