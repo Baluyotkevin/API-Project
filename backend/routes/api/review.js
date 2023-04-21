@@ -19,11 +19,11 @@ const validateReview = [
 
 // gets all reviews from current user
 router.get('/current', requireAuth, async (req, res) => {
-    const userId = req.user.id;
-    const result = {}
+    const currentUser = req.user.id;
+    const result = {};
     const allReviews = await Review.findAll({
         where: {
-            userId: userId
+            userId: currentUser
         },
         include: [
             {
@@ -48,30 +48,44 @@ router.get('/current', requireAuth, async (req, res) => {
 
     });
     result.Reviews = allReviews
-    res.status(200).json(result)
+    res.status(200).json(result);
 });
 
 // add/posts images for reviewImages
 router.post('/:reviewId/images', requireAuth, async (req, res) => {
     const reviewId = req.params.reviewId;
+    const currentUser = req.user.id
     const review = await Review.findByPk(reviewId);
     const { url } = req.body;
     if(!review) {
-        res.status(404).json({
+        return res.status(404).json({
             message: "Review couldn't be found"
-        })
-    }
+        });
+    };
+
+    const reviewOwner = review.userId
+    if (currentUser !== reviewOwner) {
+        return res.status(401).json({
+            message: "You are not authorized to add images to this review >:("
+        });
+    };
+
+    const imageCount = await ReviewImage.findAll({
+        where: {
+            reviewId: reviewId
+        }
+    });
+
+    if ((imageCount.length + 1) > 10) {
+        return res.status(403).json({
+            message: "Maximum number of images for this resource was reached"
+        });
+    };
 
     const newImage = await ReviewImage.create({
         reviewId: parseInt(reviewId),
         url
     });
-
-    if(newImage.id > 10) {
-        res.status(403).json({
-            message: "Maximum number of images for this resource was reached"
-        });
-    };
 
     const newImageBody = {
         id: newImage.id,
@@ -85,12 +99,20 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     const reviewId = req.params.reviewId;
     const oneReview = await Review.findByPk(reviewId)
+    const currentUser = req.user.id;
+    const { review, stars } = req.body;
     if(!oneReview) {
-        res.status(404).json({
+        return res.status(404).json({
             message: "Review couldn't be found"
         });
     };
-    const { review, stars } = req.body;
+
+    const reviewOwner = oneReview.userId;
+    if(currentUser !== reviewOwner) {
+        return res.status(401).json({
+            message: "You are not authorized to edit this booking"
+        });
+    };
 
     oneReview.review = review
     oneReview.stars = stars
@@ -99,5 +121,30 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
 
     res.status(200).json(oneReview)
 })
+
+// deletes a review
+router.delete('/:reviewId', requireAuth, async (req, res) => {
+    const reviewId = req.params.reviewId;
+    const currentUser = req.user.id;
+    const review = await Review.findByPk(reviewId);
+    if(!review) {
+        return res.status(404).json({
+            message: "Review couldn't be found"
+        });
+    };
+    
+    const reviewOwner = review.userId;
+    if (currentUser !== reviewOwner) {
+        return res.status(401).json({
+            message: "You are not authorized to edit this booking >:("
+        });
+    }
+
+   await review.destroy()
+    res.status(200).json({
+        message: "Successfully deleted"
+    });
+});
+
 
 module.exports = router;
