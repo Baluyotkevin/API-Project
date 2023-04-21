@@ -1,6 +1,6 @@
 const express = require('express');
 const { requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, ReviewImage } = require('../../db/models');
+const { User, Spot, Review, ReviewImage, SpotImage } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
@@ -26,7 +26,7 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         include: [
             {
-            model: User,
+                model: User,
                 attributes: {
                     exclude: ['email', 'username', 'hashedPassword', 'createdAt', 'updatedAt']
                 }
@@ -38,15 +38,36 @@ router.get('/current', requireAuth, async (req, res) => {
                 }
             },
             {
-            model: ReviewImage,
+                model: ReviewImage,
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'preview', 'reviewId']
                 }
             },
     ]
+    }); 
 
-    });
-    result.Reviews = allReviews
+    let allReviewsArr = [];
+    for (let review of allReviews) {
+        review = review.toJSON();
+        const allImages = await SpotImage.findAll({
+            where: {
+                spotId :review.Spot.id
+            }
+        });
+
+        let imagesArray = [];
+        for (let image of allImages) {
+            image = image.toJSON()
+            if(review.Spot.id === image.spotId) {
+                imagesArray.push(image.url)
+            };
+        };
+
+        review.Spot.previewImage = imagesArray;
+        allReviewsArr.push(review);
+    };
+
+    result.Reviews = allReviewsArr;
     res.status(200).json(result);
 });
 

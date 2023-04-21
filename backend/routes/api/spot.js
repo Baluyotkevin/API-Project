@@ -9,13 +9,13 @@ const router = express.Router();
 const validateSpots = [
     check('address')
       .exists({ checkFalsy: true })
-      .withMessage("Street address is required"),
+      .withMessage('Street address is required'),
     check('city')
       .exists({ checkFalsy: true })
       .withMessage('City is required'),
     check('state')
         .exists({ checkFalsy: true })
-      .withMessage('State is required"'),
+      .withMessage('State is required'),
     check('country')
       .exists({ checkFalsy: true })
       .withMessage('Country is required'),
@@ -211,12 +211,14 @@ router.get('/:spotId', async (req, res) => {
         }
     });
     let allReviews = await Review.findAll();
-    let allImages = await SpotImage.findByPk(spotId, {
+    let allImages = await SpotImage.findAll( {
+        where: {
+            spotId: spotId
+        },
         attributes: {
             exclude: ['spotId', 'createdAt', 'updatedAt']
         }
     });
-
         oneSpot = oneSpot.toJSON()
         let total = 0;
         let length = 0;
@@ -229,15 +231,16 @@ router.get('/:spotId', async (req, res) => {
         };
 
         let imagesArray = [];
-        if (allImages.length > 1) {
+        // if (allImages.length > 1) {
             for (let image of allImages) {
                 image = image.toJSON()
                 imagesArray.push(image)
             };
-        } else {
-            allImages = allImages.toJSON()
-            imagesArray.push(allImages)
-        };
+        // } 
+        // else {
+        //     allImages[0] = allImages[0].toJSON()
+        //     imagesArray.push(allImages)
+        // };
         oneSpot.numReviews = length;
         oneSpot.avgStarRating = total / length;
         oneSpot.SpotImages = imagesArray;
@@ -246,7 +249,7 @@ router.get('/:spotId', async (req, res) => {
             oneSpot.avgStarRating = 'Has not been rated yet ;('
         };
         if(!imagesArray.length) {
-            oneSpot.SpotImages = 'No images ;( available'
+            oneSpot.SpotImages = 'No images available ;('
         };
         if(!oneSpot.numReviews) {
             oneSpot.numReviews = 'No reviews ;('
@@ -365,7 +368,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
     res.status(201).json(newReview);
 });
 
-// adds new images for spots
+// adds/creates new images for spots
 router.post('/:spotId/images', requireAuth, async (req, res) => {
     const spotId = req.params.spotId;
     const currentUser = req.user.id;
@@ -397,7 +400,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         preview: newImage.preview
     };
 
-    res.status(201).json(image);
+    res.status(200).json(image);
 });
 
 //post new Bookings
