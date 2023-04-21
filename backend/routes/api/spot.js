@@ -1,9 +1,9 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, SpotImage, ReviewImage, Booking } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require("sequelize");
 const router = express.Router();
 
 const validateSpots = [
@@ -59,6 +59,7 @@ const validateDate = [
     handleValidationErrors
 ];
 
+
 // gets all spots from currentUser
 router.get('/current', requireAuth, async (req, res) => {
     const currentUser = req.user.id;
@@ -100,16 +101,67 @@ router.get('/current', requireAuth, async (req, res) => {
             spot.previewImages = 'No images ;( available'
         };
         result.Spots.push(spot);
-    }
+    };
+
+    
+    
+
     res.status(200).json(result);
 });
 
 // gets all spots
 router.get('/' , async (req, res) => {
-    const allSpots = await Spot.findAll()
+    const errorObj = {message: "Bad Request", errors: {}}
+    const query = {};
+    const page = req.query.page === undefined ? 1 : parseInt(req.query.page);
+    const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+    const lat = req.query.lat === undefined ? 90 : parseInt(req.query.lat);
+    const lng = req.query.lng === undefined ? 180 : parseInt(req.query.lng);
+    const price = req.query.price === undefined ? 999999999 : parseInt(req.query.price);
+    if (page < 1) errorObj.errors.page = "Page must be greater than or equal to 1";
+    if (size < 1) errorObj.errors.size = "Size must be greater than or equal to 1";
+    if (lat < -90 || !Number.isInteger(lat)) errorObj.errors.minLat = "Minimum latitude is invalid";
+    if (lat > 90 || !Number.isInteger(lat)) errorObj.errors.maxLat = "Maximum latitude is invalid";
+    if (lng < -180 || !Number.isInteger(lng)) errorObj.errors.minLng = "Minimum longitude is invalid";
+    if (lng > 180 || !Number.isInteger(lng)) errorObj.errors.maxLng = "Maximum longitude is invalid";
+    if (price < 0 || !Number.isInteger(price)) errorObj.errors.maxPrice = "Minimum price must be greater than or equal to 0"
+    if (price < 0 || !Number.isInteger(price))errorObj.errors.minPrice = "Minimum price must be greater than or equal to 0"
+    if (errorObj.errors.page ||
+        errorObj.errors.size ||
+        errorObj.errors.minLat ||
+        errorObj.errors.maxLat ||
+        errorObj.errors.minLng ||
+        errorObj.errors.maxLng ||
+        errorObj.errors.maxPrice ||
+        errorObj.errors.minPrice) return res.status(400).json(errorObj)
+        if (page >= 1 && size >= 1 && !(Number.isNaN(size)) && !(Number.isNaN(page))) {
+            query.limit = size;
+            query.offset = size * (page - 1);
+        };
+
+        if (size > 20) size = 20;
+        if (page > 10) page = 10;
+    const allSpots = await Spot.findAll({
+        where: {
+            lat: {
+                [Op.between]: [-90, lat]
+            },
+            lng: {
+                [Op.between]: [-180, lng]
+            },
+            price: {
+                [Op.between]: [0, price]
+            },
+            
+        },
+        ...query
+    });
     const allReviews = await Review.findAll()
     const allImages = await SpotImage.findAll()
     const result = {Spots: []};
+        result.page = page;
+        result.size = size;
+
 
     for (let spot of allSpots) {
         spot = spot.toJSON()
