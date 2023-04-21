@@ -58,7 +58,20 @@ module.exports = {
         name: "yes",
         description: 'beautifulspot',
         price: 5923
+      },
+      {
+        ownerId: 3,
+        address: 'beats me',
+        city: 'yourcity',
+        state: 'nostate',
+        country: 'somewhere south',
+        lat: 0.1,
+        lng: 0.12,
+        name: "BEAUTIFULAMAZINGSPOT",
+        description: 'youcanalreadyguessthatsbeautiful',
+        price: 5923
       }
+
     ], {});
     /**
      * Add seed commands here.

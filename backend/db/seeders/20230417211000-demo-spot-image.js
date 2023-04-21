@@ -25,6 +25,11 @@ module.exports = {
         spotId: 2,
         url: 'woooooooow.com',
         preview: true
+      },
+      {
+        spotId: 3,
+        url: 'theoneandonlybeautifulhome.com',
+        preview: true
       }
     ], {});
     /**

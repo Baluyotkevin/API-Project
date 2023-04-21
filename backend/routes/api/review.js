@@ -16,7 +16,8 @@ const validateReview = [
     handleValidationErrors
 ];
 
-// gets all reviews from current user
+// gets all reviews from current user 
+// in live it does not show? but it does in local
 router.get('/current', requireAuth, async (req, res) => {
     const currentUser = req.user.id;
     const result = {};
