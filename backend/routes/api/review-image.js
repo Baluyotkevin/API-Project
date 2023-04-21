@@ -15,7 +15,7 @@ router.delete('/:reviewImageId', requireAuth, async (req, res) => {
     const review = await Review.findByPk(reviewImage.reviewId);
     const reviewOwner = review.userId;
     if (currentUser !== reviewOwner) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not authorized to delete this review image >:("
         });
     };

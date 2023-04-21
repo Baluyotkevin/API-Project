@@ -64,7 +64,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
     const reviewOwner = review.userId
     if (currentUser !== reviewOwner) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not authorized to add images to this review >:("
         });
     };
@@ -108,7 +108,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
 
     const reviewOwner = oneReview.userId;
     if(currentUser !== reviewOwner) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not authorized to edit this booking"
         });
     };
@@ -134,7 +134,7 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
     
     const reviewOwner = review.userId;
     if (currentUser !== reviewOwner) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not authorized to edit this booking >:("
         });
     }

@@ -380,7 +380,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
     const spotOwner = spot.ownerId;
     if (currentUser !== spotOwner) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not authorized to post images on this spot >:("
         });
     };
@@ -412,7 +412,7 @@ router.post('/:spotId/bookings', requireAuth, validateDate, async (req, res) => 
         });
     };
     if(currentUserId === spot.ownerId) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not allowed to book your own spot >:( Unless.."
         });
     };
@@ -489,7 +489,7 @@ router.put('/:spotId', requireAuth, validateSpots, async (req, res) => {
     
     const spotOwnerUser = spot.ownerId;
     if(currentUser !== spotOwnerUser) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not authorized to edit this spot"
         });
     };
@@ -523,7 +523,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
     const spotOwnerUser = spot.ownerId;
     if(currentUser !== spotOwnerUser) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not authorized to edit this spot"
         });
     };

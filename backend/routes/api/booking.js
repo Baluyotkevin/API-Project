@@ -72,7 +72,7 @@ router.put('/:bookingId', requireAuth, validateDate, async (req, res) => {
 
     const bookingOwner = booking.userId;
     if (currentUser !== bookingOwner) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not authorized to edit this booking >:("
         });
     };
@@ -133,7 +133,7 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
     };
     const bookingOwner = booking.userId;
     if(currentUser !== bookingOwner) {
-        return res.status(401).json({
+        return res.status(403).json({
             message: "You are not authorized to delete this booking >:("
         });
     };
