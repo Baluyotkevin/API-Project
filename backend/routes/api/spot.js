@@ -113,11 +113,19 @@ router.get('/current', requireAuth, async (req, res) => {
 router.get('/' , async (req, res) => {
     const errorObj = {message: "Bad Request", errors: {}}
     const query = {};
+    const where = {};
     const page = req.query.page === undefined ? 1 : parseInt(req.query.page);
     const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+    // const minLat = req.query.minLat === undefined ? -90 : parseInt(req.query.minLat);
+    // const maxLat = req.query.maxLat === undefined ? 90: parseInt(req.query.maxLat);
     const lat = req.query.lat === undefined ? 90 : parseInt(req.query.lat);
     const lng = req.query.lng === undefined ? 180 : parseInt(req.query.lng);
     const price = req.query.price === undefined ? 999999999 : parseInt(req.query.price);
+    // if (price === undefined) {
+    //     const minPrice = req.query.minPrice === undefined ? 0 : parseInt(req.query.minPrice)
+    //     const maxPrice = req.query.maxPrice === undefined ? 999999999 : parseInt(req.query.maxPrice)
+    //     where.minPrice = [Op]
+    // }
     if (page < 1) errorObj.errors.page = "Page must be greater than or equal to 1";
     if (size < 1) errorObj.errors.size = "Size must be greater than or equal to 1";
     if (lat < -90 || !Number.isInteger(lat)) errorObj.errors.minLat = "Minimum latitude is invalid";

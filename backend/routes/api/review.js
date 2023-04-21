@@ -97,11 +97,14 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         }
     });
 
-    if ((imageCount.length + 1) > 10) {
-        return res.status(403).json({
-            message: "Maximum number of images for this resource was reached"
-        });
-    };
+    if (imageCount.length === 0) {
+        imageCount.length++
+        if (imageCount.length > 10) {
+            return res.status(403).json({
+                message: "Maximum number of images for this resource was reached"
+            });
+        };
+    } 
 
     const newImage = await ReviewImage.create({
         reviewId: parseInt(reviewId),
