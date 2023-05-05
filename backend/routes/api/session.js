@@ -34,7 +34,7 @@ router.post('/', validateLogin, async (req, res, next) => {
       }
     });
 
-    if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
+    if (!user|| !bcrypt.compareSync(password, user.hashedPassword.toString())) {
       const err = new Error('Login failed');
       err.status = 401;
       err.title = 'Login failed';
@@ -76,6 +76,7 @@ router.post('/', validateLogin, async (req, res, next) => {
           email: user.email,
           username: user.username,
         };
+
         return res.json({
           user: safeUser
         });
