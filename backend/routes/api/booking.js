@@ -14,7 +14,6 @@ const validateDate = [
     handleValidationErrors
 ];
 
-
 // gets all bookings for currentUser
 router.get('/current', requireAuth, async (req, res) => {
     const currentUserId = req.user.id;

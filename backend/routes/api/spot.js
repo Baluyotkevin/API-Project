@@ -49,7 +49,7 @@ const validateReview = [
     .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
-// is this right?
+
 const validateDate = [
     check('endDate')
     .custom((value, { req }) => {
