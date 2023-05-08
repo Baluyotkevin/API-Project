@@ -4,17 +4,13 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     /* border: 3px solid blue; */
     margin-top: 50px;
-    gap: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
-.oneSpot-container {
-    display: grid;
-}
-
-.preview-image > img {
+.preview-image img {
     width: 300px;
     height: 200px;
-
 }
 
 .spotDetails-container {
@@ -25,7 +21,7 @@
 .oneSpot-container {
     width: 100%;
     margin-left: 20px;
-    width: 250px;
+    width: 300px;
 }
 
 div.rating-container > p {
