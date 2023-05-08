@@ -38,7 +38,6 @@ function DisplaySingleSpot() {
                 <p>{singleSpot.price}</p>
             </div>
         </div>
-
         <div>
             {singleSpot.avgStarRating}
         </div> */}

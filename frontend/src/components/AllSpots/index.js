@@ -22,7 +22,7 @@ function DisplayAllSpots() {
             // console.log(oneSpot)
             return (
                 <div key={oneSpot.id} className='oneSpot-container'>
-                    <div>
+                    <div className="preview-image">
                         <img src={oneSpot.previewImage} />
                     </div>
                     <div className='spotDetails-container'>
