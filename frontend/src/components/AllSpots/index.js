@@ -10,7 +10,7 @@ function DisplayAllSpots() {
     const allSpots = useSelector(state => {
         return state.spots.allSpots
     })
-    // console.log("object :", allSpots)
+    console.log("object :", allSpots)
    
     useEffect(() => {
         dispatch(thunkAllSpots())
@@ -30,8 +30,8 @@ function DisplayAllSpots() {
                         <p>{oneSpot.city}, {oneSpot.state}</p>
                         <p>{oneSpot.price}</p>
                             </div>
-                    <div>
-                        <p>hello</p>
+                    <div className='rating-container'>
+                        <p>{oneSpot.avgRating}</p>
                     </div>
                     </div>
                 </div>

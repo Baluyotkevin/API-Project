@@ -2,6 +2,7 @@
     display: none
 }
 
+
 .nav-container {
     width: 100%;
     height: 100%;
@@ -22,7 +23,6 @@
     width: 50%;
 }
 
-
 .nav-logo a {
     text-decoration: none;
 }
@@ -32,7 +32,8 @@
     grid-template-columns: 1fr 1fr;
     margin-left: auto;
     border-radius: 20px;
-    width: 65px;
+    width: 80px;
+    height: 45px;
     border: 2px solid black;
 }
 
@@ -45,23 +46,16 @@
 li.nav-profile-button {
     display: flex;
     justify-content: flex-end;
-    /* align-items: center; */
-    /* width: 100%; */
-    /* gap: 10px;
-    border-radius: 50px;
-    height: 20px; */
-    /* wid */
-     height: 100%;
+    margin: 20px;
+    height: 100%;
 }
 
 .nav-profile-button button {
-    /* display: flex; */
     background-color: white;
     border: none;
     border-radius: 100px;
     width: 40px;
     height: 40px; 
-     /* margin-left: auto; */
 }
 
 div.nav-button {
@@ -81,12 +75,17 @@ div.nav-button {
     font-size: 20px;
 }
 
-.fa-bars {
-    font-size: 20px;
-    /* width: 40px;
-    height: 40px; */
+.fa-user-ninja:hover {
+    cursor: pointer;
 }
 
+.fa-bars {
+    font-size: 20px;
+}
+
+.fa-bars:hover {
+    cursor: pointer;
+}
 .airbnbLogo {
     width: 120px;
     height: 100px;
@@ -98,48 +97,4 @@ ul.profile-dropdown {
     margin-left: auto;
     border: 3px solid #a06cd5;
     border-radius: 20px;
-}
-
-div.modal-menu {
-    display: flex;
-}
-
-#modal-content h1 {
-    color: #c19ee0;
-}
-
-#modal-content button {
-    width: 100px;
-    height: 25px;
-    background-color: white;
-    border: 1px solid #a06cd5;
-    box-shadow: 5px 5px 5px #a06cd5;
-    color: #a06cd5;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    color: #dec9e9;
-}
-
-input {
-    border: 1px solid lavender;
-    box-shadow: 5px 5px 5px lavender;
-    width: 150px;
-    height: 30px;
-}
-
-#modal-content {
-    width: 50rem;
-    height: 20rem;
-    border: 3px solid lavender;
-    border-radius: 20px;
-    box-shadow: 5px 5px 5px lavender;
-}
-
-
-.link-modal:hover {
-    cursor: pointer;
 }

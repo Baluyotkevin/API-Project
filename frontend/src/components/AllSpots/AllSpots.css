@@ -22,3 +22,14 @@
     grid-template-columns: 1fr 1fr;
 }
 
+.oneSpot-container {
+    width: 100%;
+    margin-left: 20px;
+    width: 250px;
+}
+
+div.rating-container > p {
+    display: flex;
+    justify-content: flex-end;
+}
+
