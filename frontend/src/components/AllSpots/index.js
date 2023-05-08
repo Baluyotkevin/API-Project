@@ -2,7 +2,7 @@ import React from "react";
 import { thunkAllSpots } from '../../store/spot';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './AllSpots.css';
 
 function DisplayAllSpots() {
@@ -23,7 +23,9 @@ function DisplayAllSpots() {
             return (
                 <div key={oneSpot.id} className='oneSpot-container'>
                     <div className="preview-image">
+                        <Link exact to={`/spots/${oneSpot.id}`}>
                         <img src={oneSpot.previewImage} />
+                        </Link>
                     </div>
                     <div className='spotDetails-container'>
                         <div>
