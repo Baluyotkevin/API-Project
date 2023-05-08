@@ -18,10 +18,7 @@ function Navigation({ isLoaded }){
       </li>
       {isLoaded && (
         <li className='nav-profile-button'>
-          <div className='icon-container'>
           <ProfileButton  user={sessionUser} />
-
-          </div>
         </li>
       )}
     </ul>
