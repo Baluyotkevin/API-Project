@@ -1,31 +1,43 @@
 import React from "react";
-import thunkAllSpots from '../../store/spot';
+import { thunkAllSpots } from '../../store/spot';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-
-
-
+import './AllSpots.css';
 
 function DisplayAllSpots() {
     const dispatch = useDispatch();
-    const allSpots = useSelector(state => Object.values(state.spots.allSpots))
-    // console.log(allSpots)
-
+    const allSpots = useSelector(state => {
+        return state.spots.allSpots
+    })
+    // console.log("object :", allSpots)
+   
     useEffect(() => {
         dispatch(thunkAllSpots())
     }, [dispatch])
-
+    
     return (
-        <>
-        {allSpots.map(spots => {
+        <div className='allSpots-container'>
+        {Object.values(allSpots).map(oneSpot => {
+            // console.log(oneSpot)
             return (
-                <>
-                <p>{spots}</p>
-                </>
+                <div key={oneSpot.id} className='oneSpot-container'>
+                    <div>
+                        <img src={oneSpot.previewImage} />
+                    </div>
+                    <div className='spotDetails-container'>
+                        <div>
+                        <p>{oneSpot.city}, {oneSpot.state}</p>
+                        <p>{oneSpot.price}</p>
+                            </div>
+                    <div>
+                        <p>hello</p>
+                    </div>
+                    </div>
+                </div>
             )
         })}
-        </>
+        </div>
     )
 }
 

@@ -1,0 +1,17 @@
+.allSpots-container {
+    display: grid;
+    grid-template-rows: 1fr ;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    border: 3px solid blue;
+}
+
+.oneSpot-container {
+    display: grid;
+
+}
+
+.spotDetails-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+

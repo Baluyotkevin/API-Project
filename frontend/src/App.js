@@ -4,12 +4,12 @@ import { Switch, Route } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpots from './components/AllSpots'
+import SingleSpot from './components/SingleSpot'
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    // fetch('/api/spots')
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
@@ -17,8 +17,11 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Switch>
-      <Route>
+      <Route exact path='/'>
         <AllSpots />
+      </Route>
+      <Route exact path='/spots/:spotId'>
+        <SingleSpot />
       </Route>
         </Switch>}
     </>
