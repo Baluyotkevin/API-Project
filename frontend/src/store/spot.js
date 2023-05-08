@@ -29,7 +29,7 @@ export const thunkSingleSpot = (spotId) => async dispatch => {
     const res = await fetch(`/api/spots/${spotId}`)
     if(res.ok) {
         const singleSpot = await res.json();
-        // console.log("singleSPot", singleSpot)
+        console.log("singleSPot", singleSpot)
         dispatch(loadSingleSpot(singleSpot))
     }
 }
@@ -54,16 +54,15 @@ const allSpotsReducer = (state = initialState, action) => {
                     allSpots: newSpots
                 }
             case GET_SINGLE_SPOT:
-                const newSpot = {};
+                const newSpot = {}
                 const singleSpot = action.spot;
-                // console.log(singleSpot)
+                newSpot[singleSpot.id] = singleSpot
                 // newSpot[singleSpot.id] = singleSpot
                 // newSpot = singleSpot
                 // console.log("newSPot: ", singleSpot)
-                newSpot = {...singleSpot}
                 return { 
                     ...state,
-                    singleSpot: singleSpot
+                    singleSpot: newSpot
                 }
             // const newAllSpots = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot}};
         // action.spots.Spots.map(spot => {

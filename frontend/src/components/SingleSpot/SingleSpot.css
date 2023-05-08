@@ -1,0 +1,47 @@
+ul.spot-image-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 50px 50px 0px 50px;
+    gap: 10px;
+}
+
+.div-p-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.main-image > img {
+    width: 500px;
+}
+
+.main-image {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.price-container {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    border: 1.5px solid lavender;
+    border-radius: 5px;
+}
+
+.reviewPrice-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0px 20px 0px;
+    padding-top: 10px;
+}
+
+
+
+.button-container > button {
+    width: 300px;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid lavender;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
