@@ -2,12 +2,13 @@
     display: grid;
     grid-template-rows: 1fr ;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    border: 3px solid blue;
+    /* border: 3px solid blue; */
+    margin-top: 50px;
+    gap: 20px;
 }
 
 .oneSpot-container {
     display: grid;
-
 }
 
 .preview-image > img {
