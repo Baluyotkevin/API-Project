@@ -1,0 +1,44 @@
+#modal-content {
+    width: 50rem;
+    height: 20rem;
+    border: 3px solid lavender;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px lavender;
+}
+
+.link-modal:hover {
+    cursor: pointer;
+}
+
+
+div.modal-menu {
+    display: flex;
+}
+
+#modal-content h1 {
+    color: #c19ee0;
+}
+
+#modal-content button {
+    width: 100px;
+    height: 25px;
+    background-color: white;
+    border: 1px solid #a06cd5;
+    box-shadow: 5px 5px 5px #a06cd5;
+    color: #a06cd5;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #dec9e9;
+}
+
+input {
+    border: 1px solid lavender;
+    box-shadow: 5px 5px 5px lavender;
+    width: 150px;
+    height: 30px;
+}
+

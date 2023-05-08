@@ -44,7 +44,7 @@ function ProfileButton({ user }) {
     <>
       <div className="icon-container">
     <div className='nav-button'>
-      <i className="fa-solid fa-bars"></i>
+      <i className="fa-solid fa-bars" onClick={openMenu}></i>
     </div>
       <button className='menu-button' onClick={openMenu}>
       <i className="fa-solid fa-user-ninja"></i>
@@ -67,6 +67,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
+
             <OpenModalMenuItem
               itemText="Sign Up"
               onItemClick={closeMenu}
