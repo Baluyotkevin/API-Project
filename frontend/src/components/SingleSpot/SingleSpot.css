@@ -49,6 +49,7 @@
     display: flex;
     flex-direction: column;
     margin: 10px 60px;
+    gap: 20px;
 }
 
 .firstContainer {
@@ -56,6 +57,7 @@
     grid-template-areas: 
     "a b"
     "c d";
+    gap: 5px;
     /* flex-direction: row; */
     /* width: 100%; */
 }
@@ -94,3 +96,57 @@ img {
     height: 200px;
 }
 
+.buttonPriceContainer {
+    border: 2px solid lavender;
+    border-radius: 5px;
+    width: 300px;
+    height: 100px;
+}
+
+.div-p-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* flex-direction: row; */
+    /* justify-content: space-around; */
+}
+
+div.price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+div.reviewPrice-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.star{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.numReview {
+    display: flex;
+    justify-content: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button-container > button {
+    width: 80%;
+    height: 35px;
+    border-radius: 5px;
+    border: 2px solid #d2b7e5;
+    background-color: lavender;
+    color: #6247aa;
+}
+
+.star-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

@@ -42,22 +42,25 @@ function DisplaySingleSpot() {
             </div>
         <div className='div-p-container'>
             <div className='owner-descrip-container'>
-                <p>Hosted By {singleSpot.Owner.firstName} {singleSpot.Owner.lastName}</p>
+                <h2>Hosted By {singleSpot.Owner.firstName} {singleSpot.Owner.lastName}</h2>
                 <p>{singleSpot.description}</p>
             </div>
             <div className='price-container'>
+                <div className='buttonPriceContainer'>
                     <div className='reviewPrice-container'>
-                        <p>${singleSpot.price} per night</p>
-                        <p><i class="fa-solid fa-star"></i>{singleSpot.avgStarRating}</p>
-                        <p>{singleSpot.numReviews} reviews</p>
+                        <p className='price'>${singleSpot.price} per night</p>
+                        <p className='star'><i class="fa-solid fa-star"></i>{singleSpot.avgStarRating}</p>
+                        <p className='numReview'>{singleSpot.numReviews} reviews</p>
                     </div>
                         <div className='button-container'>
-                    <button>Reserve</button>
-                    </div>
+                            <button>Reserve</button>
+                        </div>
+                </div>
             </div>
         </div>
         <div className='star-container'>
-            {singleSpot.avgStarRating}
+            <h3><i class="fa-solid fa-star"></i>{singleSpot.avgStarRating}</h3>
+            <h3>{singleSpot.numReviews} reviews</h3>
         </div>
 
         </div>
