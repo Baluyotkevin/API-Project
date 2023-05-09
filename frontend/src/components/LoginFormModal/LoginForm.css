@@ -10,9 +10,9 @@
     cursor: pointer;
 }
 
-
 div.modal-menu {
     display: flex;
+    z-index: 6;
 }
 
 #modal-content h1 {

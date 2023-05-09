@@ -1,5 +1,6 @@
 .allSpots-container {
     display: grid;
+    position: absolute;
     grid-template-rows: 1fr ;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     /* border: 3px solid blue; */
@@ -20,7 +21,6 @@
 
 .oneSpot-container {
     width: 100%;
-    margin-left: 20px;
     width: 300px;
 }
 
