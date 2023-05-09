@@ -10,7 +10,6 @@ function DisplayAllSpots() {
     const allSpots = useSelector(state => {
         return state.spots.allSpots
     })
-    console.log("object :", allSpots)
    
     useEffect(() => {
         dispatch(thunkAllSpots())

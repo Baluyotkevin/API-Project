@@ -1,5 +1,9 @@
-const GET_ALL_SPOTS = 'spot/loadAllSpots'
-const GET_SINGLE_SPOT = 'spot/loadSingleSpot'
+import { csrfFetch } from "./csrf";
+
+const GET_ALL_SPOTS = 'spot/loadAllSpots';
+const GET_SINGLE_SPOT = 'spot/loadSingleSpot';
+const CREATE_SPOT = 'spot/createSpot';
+const UPDATE_SPOT = 'spot/editSpot';
 // all action creators
 
 const loadAllSpots = (spots) => {
@@ -15,6 +19,21 @@ const loadSingleSpot = (spot) => {
         spot
     }
 }
+
+const createSpot = (spot) => {
+    return {
+        type: CREATE_SPOT,
+        spot
+    }
+}
+
+const editSpot = (spot) => {
+    return {
+        type: UPDATE_SPOT,
+        spot
+    }
+}
+
 
 // all thunks
 export const thunkAllSpots = () => async dispatch => {
@@ -33,6 +52,44 @@ export const thunkSingleSpot = (spotId) => async dispatch => {
     }
 }
 
+export const thunkCreateSpot = (spot) => async dispatch => {
+    let res;
+    try {
+        res = await csrfFetch('/api/spots', {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(spot)
+        });
+            const newSpot = await res.json()
+            dispatch(createSpot(newSpot))
+            return newSpot
+    } catch (err) {
+        const errors = await err.json();
+        return errors
+    }   
+}
+
+export const thunkEditSpot = (spot) => async dispatch => {
+    let res;
+    console.log("THIS MY SPOT RIGHT HEEEEE", spot)
+    try {
+        res = await csrfFetch(`/api/spots/${spot.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(spot)
+        })
+
+        console.log("THIS IS MY REEEES:", res)
+
+            const updatedSpot = await res.json()
+            dispatch(editSpot(updatedSpot))
+            return updatedSpot
+        } catch (err) {
+            const errors = await err.json();
+            return errors
+    }
+}
+
 const initialState = {
     allSpots: {},
     singleSpot: {}
@@ -44,7 +101,6 @@ const allSpotsReducer = (state = initialState, action) => {
         case GET_ALL_SPOTS:
             const newSpots = {};
             const spotsArray = action.spots.Spots;
-            // console.log("spotsArray:", spotsArray)
             spotsArray.forEach(spot => {
                 newSpots[spot.id] = spot
             })
@@ -56,22 +112,28 @@ const allSpotsReducer = (state = initialState, action) => {
                 const newSpot = {}
                 const singleSpot = action.spot;
                 newSpot[singleSpot.id] = singleSpot
-                // newSpot[singleSpot.id] = singleSpot
-                // newSpot = singleSpot
-                // console.log("newSPot: ", singleSpot)
                 return { 
                     ...state,
                     singleSpot: newSpot
                 }
-            // const newAllSpots = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot}};
-        // action.spots.Spots.map(spot => {
-            // console.log("newAllSpots:", newAllSpots)
-        //     newAllSpots[spot.id] = spot
-        // })
-        // return {
-        //     ...state,
-        //     ...newAllSpots
-        // }
+            case CREATE_SPOT: {
+                const newSpot = {}
+                const createdSpot = action.spot
+                newSpot[createdSpot.id] = createdSpot
+                return {
+                    ...state,
+                    singleSpot: newSpot
+                }
+            }
+            case UPDATE_SPOT: {
+                const newSpot = {};
+                const updatedSpot = action.spot
+                newSpot[updatedSpot.id] = updatedSpot
+                return {
+                    ...state,
+                    singleSpot: newSpot
+                }
+            }
         default:
             return state;
 
