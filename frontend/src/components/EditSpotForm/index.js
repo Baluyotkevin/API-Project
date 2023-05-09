@@ -1,20 +1,20 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { } from '../../store/spot';
+import { thunkSingleSpot } from '../../store/spot';
 import SpotForm from '../SpotForm';
 
 const EditSpotForm = () => {
     const { spotId } = useParams();
-    const dispatch = useDispatch()
     const spot = useSelector(state => {
-        console.log("THIS IS MY  STAAATE",state)
-        return state
+        console.log("THIS IS MY  STAAATE", state.spots.singleSpot[spotId])
+        return state.spots.singleSpot[spotId]
     })
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(thunkEditSpot(spotId))
-    })
+        dispatch(thunkSingleSpot(spotId))
+    }, [dispatch, spotId])
 
     if(!spot) return <>Spot not found</>
 
@@ -26,7 +26,6 @@ const EditSpotForm = () => {
         formType={'Update your Spot'}
         />
        </>
-
         )
     )
 }

@@ -35,17 +35,20 @@ const SpotForm = ({ spot, formType }) => {
         }
         if (formType === 'Update your Spot') {
             const editSpot = await dispatch(thunkEditSpot(spot))
+            console.log("before spot: ", spot)
             spot = editSpot
+            console.log("after spot: ", spot)
         } else if (formType === 'Create a new Spot') {
             const newSpot = await dispatch(thunkCreateSpot(spot))
             spot = newSpot
         } 
         
+        // console.log("THIS IS WHAT IM LOOKING AT:", spot)
         
         if(spot.errors) {
             setErrors(spot.errors)
         } else {
-            history.push(`/api/spot/${spot.id}`)
+            history.push(`/spots/${spot.id}`)
         }
 
     }

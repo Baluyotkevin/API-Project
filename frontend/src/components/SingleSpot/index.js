@@ -1,8 +1,8 @@
 import React from "react";
-import { thunkSingleSpot } from '../../store/spot';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
+import { thunkSingleSpot } from '../../store/spot';
 import { thunkAllReviewsSpot } from '../../store/review';
 import './SingleSpot.css'
 
@@ -19,11 +19,12 @@ function DisplaySingleSpot() {
     useEffect(() => {
         dispatch(thunkSingleSpot(spotId))
         dispatch(thunkAllReviewsSpot(spotId))
-    }, [dispatch])
+    }, [dispatch, spotId])
     
-    if(!singleSpot || !allReviews) return <p>PLEASE WAIT I"M LOADING</p>
+    if(!singleSpot || !allReviews || !singleSpot.SpotImages) return <p>PLEASE WAIT I"M LOADING</p>
 
     return (
+
         <div className='singleSpot-body'>
             <div className='firstContainer'>
                 <div className='firstContainer-info'>
@@ -33,7 +34,7 @@ function DisplaySingleSpot() {
                     <li className='main-image'><img src={singleSpot.SpotImages[0].url}/></li>
                 <div className='firstContainer-image'>
             <ul className='spot-image-list'>
-                {singleSpot.SpotImages.slice(1).map(spotImage => {
+                {Array.isArray(singleSpot.SpotImages) && singleSpot.SpotImages.slice(1).map(spotImage => {
                     return (
                         <li className='allOther-images' key={spotImage.id}><img src={spotImage.url} alt='house image'/></li>
                             )
@@ -81,6 +82,7 @@ function DisplaySingleSpot() {
 
         </div>
     )
+        
 }
 
 

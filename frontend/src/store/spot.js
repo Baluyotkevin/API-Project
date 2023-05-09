@@ -69,13 +69,14 @@ export const thunkCreateSpot = (spot) => async dispatch => {
     }   
 }
 
-export const thunkEditSpot = (spotId) => async dispatch => {
+export const thunkEditSpot = (spot) => async dispatch => {
     let res;
+    console.log("THIS MY SPOT RIGHT HEEEEE", spot)
     try {
-        res = await csrfFetch(`api/spots/${spotId}`, {
+        res = await csrfFetch(`/api/spots/${spot.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(spotId)
+            body: JSON.stringify(spot)
         })
 
         console.log("THIS IS MY REEEES:", res)
