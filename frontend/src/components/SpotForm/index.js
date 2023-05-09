@@ -32,15 +32,14 @@ const SpotForm = ({ spot, formType }) => {
             description,
             price
         }
-
         if (formType === 'Update your Spot') {
-
+            
         } else if (formType === 'Create a new Spot') {
             const newSpot = await dispatch(thunkCreateSpot(spot))
             spot = newSpot
         } 
-
-
+        
+        
         if(spot.errors) {
             setErrors(spot.errors)
         } else {
@@ -133,7 +132,7 @@ const SpotForm = ({ spot, formType }) => {
                     onChange={(e) => setPrice(e.target.value)}
                 />
             </label>
-            <button>Create Spot</button>
+            <button type="submit">Create Spot</button>
         </form>
     )
 }

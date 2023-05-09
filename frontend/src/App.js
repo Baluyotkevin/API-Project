@@ -5,7 +5,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpots from './components/AllSpots';
 import SingleSpot from './components/SingleSpot';
-import SpotForm from './components/SpotForm';
+import CreateSpotForm from './components/CreateSpotForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,15 +18,9 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Switch>
-      <Route exact path='/'>
-        <AllSpots />
-      </Route>
-      <Route exact path='/spots/new'>
-        {/* <SpotForm /> */}
-      </Route>
-      <Route exact path='/spots/:spotId'>
-        <SingleSpot />
-      </Route>
+      <Route exact path='/' component={AllSpots} />
+      <Route exact path='/spots/new' component={CreateSpotForm} />
+      <Route exact path='/spots/:spotId' component={SingleSpot} />
         </Switch>}
     </>
   );

@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 const GET_ALL_SPOTS = 'spot/loadAllSpots';
 const GET_SINGLE_SPOT = 'spot/loadSingleSpot';
 const CREATE_SPOT = 'spot/createSpot';
@@ -43,20 +45,22 @@ export const thunkSingleSpot = (spotId) => async dispatch => {
 }
 
 export const thunkCreateSpot = (spot) => async dispatch => {
-    const res = await fetch('/api/spots', {
-        methods: "POST",
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(spot)
-    });
+    let res;
+    try {
+        res = await csrfFetch('/api/spots', {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(spot)
+        });
+            const newSpot = await res.json()
+            dispatch(createSpot(newSpot))
+            return newSpot
+    } catch (err) {
 
-    if(res.ok) {
-        const newSpot = await res.json()
-        dispatch(createSpot(newSpot))
-        return newSpot
-    } else {
-        const errors = await res.json();
+        const errors = await err.json();
         return errors
     }
+    
 }
 
 const initialState = {
