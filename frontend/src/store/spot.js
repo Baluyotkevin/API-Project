@@ -29,7 +29,6 @@ export const thunkSingleSpot = (spotId) => async dispatch => {
     const res = await fetch(`/api/spots/${spotId}`)
     if(res.ok) {
         const singleSpot = await res.json();
-        console.log("singleSPot", singleSpot)
         dispatch(loadSingleSpot(singleSpot))
     }
 }

@@ -3,6 +3,7 @@ import { thunkSingleSpot } from '../../store/spot';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
+import { thunkAllReviewsSpot } from '../../store/review';
 import './SingleSpot.css'
 
 function DisplaySingleSpot() {
@@ -10,17 +11,22 @@ function DisplaySingleSpot() {
     const { spotId } = useParams()
     const singleSpot = useSelector(state=> {
 
-        console.log("single spottt", state.spots.singleSpot[spotId])
+        // console.log("single spottt", state.spots.singleSpot[spotId])
         return state.spots.singleSpot[spotId]
     })
-        
+    const allReviews = useSelector(state => {
+        // console.log("state: ", state.reviews.spotReviews)
+        return state.reviews.spotReviews
+    })
+    console.log(allReviews)
     // console.log("state:", singleSpot)
     
     useEffect(() => {
         dispatch(thunkSingleSpot(spotId))
+        dispatch(thunkAllReviewsSpot(spotId))
     }, [dispatch])
     
-    if(!singleSpot) return <p>PLEASE WAIT I"M LOADING</p>
+    if(!singleSpot || !allReviews) return <p>PLEASE WAIT I"M LOADING</p>
 
     return (
         <div className='singleSpot-body'>
@@ -59,8 +65,23 @@ function DisplaySingleSpot() {
             </div>
         </div>
         <div className='star-container'>
-            <h3><i class="fa-solid fa-star"></i>{singleSpot.avgStarRating}</h3>
+            <h3><i className="fa-solid fa-star"></i>{singleSpot.avgStarRating}</h3>
             <h3>{singleSpot.numReviews} reviews</h3>
+        </div>
+
+        <div className='reviews-container'>
+            <ul>
+            {Object.values(allReviews).map(review => {
+                // console.log(review)
+                return (   
+                    <li>
+                        <h5>{review.User.firstName}</h5>
+                        <h5>{review.createdAt.slice(0, 10)}</h5>
+                        <p>{review.review}</p>
+                    </li>
+                )
+            })}
+            </ul>
         </div>
 
         </div>
