@@ -16,7 +16,8 @@ function DisplaySingleSpot() {
     })
     const allReviews = useSelector(state => {
         // console.log("state: ", state.reviews.spotReviews)
-        return state.reviews.spotReviews
+        // console.log("staaaate :", state.reviews.spot)
+        return state.reviews.spot
     })
     console.log(allReviews)
     // console.log("state:", singleSpot)

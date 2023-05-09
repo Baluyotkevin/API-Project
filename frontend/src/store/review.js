@@ -33,6 +33,11 @@ export const thunkAllReviewsSpot = (spotId) => async dispatch => {
     }
 }
 
+const initialState = {
+    spot: {},
+    user: {}
+}
+
 const allReviewsReducer = (state = {}, action) => {
     switch(action.type) {
         case GET_ALL_REVIEWS_SPOT: 
@@ -45,7 +50,7 @@ const allReviewsReducer = (state = {}, action) => {
         })
         return {
             ...state,
-            spotReviews: newSpotReview
+            spot: newSpotReview
         }
         default: 
         return state;
