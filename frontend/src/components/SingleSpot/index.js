@@ -10,17 +10,11 @@ function DisplaySingleSpot() {
     const dispatch = useDispatch();
     const { spotId } = useParams()
     const singleSpot = useSelector(state=> {
-
-        // console.log("single spottt", state.spots.singleSpot[spotId])
         return state.spots.singleSpot[spotId]
     })
     const allReviews = useSelector(state => {
-        // console.log("state: ", state.reviews.spotReviews)
-        // console.log("staaaate :", state.reviews.spot)
         return state.reviews.spot
     })
-    console.log(allReviews)
-    // console.log("state:", singleSpot)
     
     useEffect(() => {
         dispatch(thunkSingleSpot(spotId))

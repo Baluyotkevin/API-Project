@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { thunkCreateSpot } from '../../store/spot'
+import { thunkCreateSpot, thunkEditSpot } from '../../store/spot'
+import './SpotForm.css'
 
 const SpotForm = ({ spot, formType }) => {
     const history = useHistory();
@@ -33,7 +34,8 @@ const SpotForm = ({ spot, formType }) => {
             price
         }
         if (formType === 'Update your Spot') {
-            
+            const editSpot = await dispatch(thunkEditSpot(spot))
+            spot = editSpot
         } else if (formType === 'Create a new Spot') {
             const newSpot = await dispatch(thunkCreateSpot(spot))
             spot = newSpot

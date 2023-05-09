@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOTS = 'spot/loadAllSpots';
 const GET_SINGLE_SPOT = 'spot/loadSingleSpot';
 const CREATE_SPOT = 'spot/createSpot';
+const UPDATE_SPOT = 'spot/editSpot';
 // all action creators
 
 const loadAllSpots = (spots) => {
@@ -22,6 +23,13 @@ const loadSingleSpot = (spot) => {
 const createSpot = (spot) => {
     return {
         type: CREATE_SPOT,
+        spot
+    }
+}
+
+const editSpot = (spot) => {
+    return {
+        type: UPDATE_SPOT,
         spot
     }
 }
@@ -56,11 +64,29 @@ export const thunkCreateSpot = (spot) => async dispatch => {
             dispatch(createSpot(newSpot))
             return newSpot
     } catch (err) {
-
         const errors = await err.json();
         return errors
+    }   
+}
+
+export const thunkEditSpot = (spotId) => async dispatch => {
+    let res;
+    try {
+        res = await csrfFetch(`api/spots/${spotId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(spotId)
+        })
+
+        console.log("THIS IS MY REEEES:", res)
+
+            const updatedSpot = await res.json()
+            dispatch(editSpot(updatedSpot))
+            return updatedSpot
+        } catch (err) {
+            const errors = await err.json();
+            return errors
     }
-    
 }
 
 const initialState = {
@@ -98,15 +124,15 @@ const allSpotsReducer = (state = initialState, action) => {
                     singleSpot: newSpot
                 }
             }
-            // const newAllSpots = { allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot}};
-        // action.spots.Spots.map(spot => {
-            // console.log("newAllSpots:", newAllSpots)
-        //     newAllSpots[spot.id] = spot
-        // })
-        // return {
-        //     ...state,
-        //     ...newAllSpots
-        // }
+            case UPDATE_SPOT: {
+                const newSpot = {};
+                const updatedSpot = action.spot
+                newSpot[updatedSpot.id] = updatedSpot
+                return {
+                    ...state,
+                    singleSpot: newSpot
+                }
+            }
         default:
             return state;
 
