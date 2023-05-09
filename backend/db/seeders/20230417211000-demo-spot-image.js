@@ -25,6 +25,21 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 1,
+        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105299564363264091/hobbitfive.jpeg',
+        preview: true
+
+      },
+      {spotId: 1,
+        url: "https://cdn.discordapp.com/attachments/1096834476564295755/1105299564623306793/hobbitfour.jpeg",
+        preview: true
+      },
+      {
+        spotId: 1,
+        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105299565025964082/hobbitsix.jpeg',
+        preview: true
+      },
+      {
         spotId: 2,
         url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105228012443680838/batmanhouse.jpeg',
         preview: true
