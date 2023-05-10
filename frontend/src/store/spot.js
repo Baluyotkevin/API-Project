@@ -4,12 +4,22 @@ const GET_ALL_SPOTS = 'spot/loadAllSpots';
 const GET_SINGLE_SPOT = 'spot/loadSingleSpot';
 const CREATE_SPOT = 'spot/createSpot';
 const UPDATE_SPOT = 'spot/editSpot';
+const DELETE_SPOT = 'spot/deleteSpot';
+const GET_CURR_USER_SPOT = 'spot/loadCurrUserSpot';
 // all action creators
+
 
 const loadAllSpots = (spots) => {
     return {
         type: GET_ALL_SPOTS,
         spots,
+    }
+}
+
+const loadCurrUserSpot = (userId) => {
+    return {
+        type: GET_CURR_USER_SPOT,
+        userId
     }
 }
 
@@ -34,6 +44,13 @@ const editSpot = (spot) => {
     }
 }
 
+const deleteSpot = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        spotId
+    }
+}
+
 
 // all thunks
 export const thunkAllSpots = () => async dispatch => {
@@ -43,6 +60,20 @@ export const thunkAllSpots = () => async dispatch => {
         dispatch(loadAllSpots(allSpots))
     }
 }
+
+export const thunkCurrUserSpot = () => async dispatch => {
+    let res;
+    try {
+        res = await csrfFetch('/api/spots/current')
+        const currUserSpots = await res.json()
+        dispatch(loadCurrUserSpot(currUserSpots))
+        return currUserSpots
+    } catch (err) {
+        const errors = await err.json()
+        return errors
+    }
+}
+
 
 export const thunkSingleSpot = (spotId) => async dispatch => {
     const res = await fetch(`/api/spots/${spotId}`)
@@ -71,16 +102,12 @@ export const thunkCreateSpot = (spot) => async dispatch => {
 
 export const thunkEditSpot = (spot) => async dispatch => {
     let res;
-    console.log("THIS MY SPOT RIGHT HEEEEE", spot)
     try {
         res = await csrfFetch(`/api/spots/${spot.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(spot)
         })
-
-        console.log("THIS IS MY REEEES:", res)
-
             const updatedSpot = await res.json()
             dispatch(editSpot(updatedSpot))
             return updatedSpot
@@ -89,6 +116,22 @@ export const thunkEditSpot = (spot) => async dispatch => {
             return errors
     }
 }
+
+export const thunkDeleteSpot = (spotId) => async dispatch => {
+    let res;
+    try {
+        res = await csrfFetch(`/api/spots/${spotId}`, {
+            method: 'DELETE'
+        })
+        const deletedSpot = await res.json()
+        dispatch(deleteSpot(deletedSpot))
+        return deletedSpot
+    } catch (err) {
+        const errors = await err.json();
+        return errors
+    }
+}
+
 
 const initialState = {
     allSpots: {},
@@ -108,7 +151,19 @@ const allSpotsReducer = (state = initialState, action) => {
                     ...state,
                     allSpots: newSpots
                 }
-            case GET_SINGLE_SPOT:
+
+        case GET_CURR_USER_SPOT: {
+            const newSpots = {}
+            const spotsArray = action.userId.Spots
+            spotsArray.forEach(spot => {
+                newSpots[spot.id] = spot
+            })
+            return {
+                ...state,
+                allSpots: newSpots
+            }
+        }
+        case GET_SINGLE_SPOT:
                 const newSpot = {}
                 const singleSpot = action.spot;
                 newSpot[singleSpot.id] = singleSpot
@@ -116,7 +171,7 @@ const allSpotsReducer = (state = initialState, action) => {
                     ...state,
                     singleSpot: newSpot
                 }
-            case CREATE_SPOT: {
+        case CREATE_SPOT: {
                 const newSpot = {}
                 const createdSpot = action.spot
                 newSpot[createdSpot.id] = createdSpot
@@ -125,7 +180,7 @@ const allSpotsReducer = (state = initialState, action) => {
                     singleSpot: newSpot
                 }
             }
-            case UPDATE_SPOT: {
+        case UPDATE_SPOT: {
                 const newSpot = {};
                 const updatedSpot = action.spot
                 newSpot[updatedSpot.id] = updatedSpot
@@ -134,6 +189,26 @@ const allSpotsReducer = (state = initialState, action) => {
                     singleSpot: newSpot
                 }
             }
+        case DELETE_SPOT: {
+            const newSpots = { ...state };
+            // console.log(state)
+            // console.log(Object.values(state.allSpots).forEach(spot => {
+            //     if (spot.id !== action.spotId) {
+            //         newSpots[spot.id] = spot
+            //     }
+            // }))
+
+            // console.log("MY NEW SPOTS ", newSpots);
+            // const newSpot = { ...state}
+
+            // console.log("THIS IS BEFORE DELETE", newSpot)
+            // console.log("THIS IS KEYING INTO ALLSPOTS", newSpot.allSpots)
+            delete newSpots.allSpots[action.spotId]
+            // console.log(newSpot)
+            // console.log("THIS IS AFTER", newSpot)
+            // console.log("THIS IS WHAT I AM LOOKINMG FOR", newSpot.allSpots)
+                return newSpots
+            }  
         default:
             return state;
 

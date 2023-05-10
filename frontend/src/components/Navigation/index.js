@@ -22,7 +22,7 @@ function Navigation({ isLoaded }){
         </li>
       )}
     </ul>
-
+    
     </div>
   );
 }

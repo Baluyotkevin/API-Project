@@ -15,6 +15,9 @@ function DisplayAllSpots() {
         dispatch(thunkAllSpots())
     }, [dispatch])
     
+
+    if(!allSpots) return <div>I AM LOOOOOOADDDING PLEASE BE PATIENTTTT</div>
+    
     return (
         <div className='allSpots-container'>
         {Object.values(allSpots).map(oneSpot => {
@@ -28,12 +31,12 @@ function DisplayAllSpots() {
                     </div>
                     <div className='spotDetails-container'>
                         <div>
-                        <p>{oneSpot.city}, {oneSpot.state}</p>
-                        <p>{oneSpot.price}</p>
-                            </div>
-                    <div className='rating-container'>
-                        <p>{oneSpot.avgRating}</p>
-                    </div>
+                            <p>{oneSpot.city}, {oneSpot.state}</p>
+                            <p>{oneSpot.price}</p>
+                        </div>
+                        <div className='rating-container'>
+                            <p>{oneSpot.avgRating}</p>
+                        </div>
                     </div>
                 </div>
             )

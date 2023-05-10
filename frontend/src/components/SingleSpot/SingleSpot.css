@@ -19,13 +19,13 @@
     width: 100%;
 }
 
-/*
-not a good idea to do this 
-*/
+/* 
+not a good idea to do this  */
+
 .main-image > img{
-    /* width: 80%;
+    width: 80%;
     height: 80%;
-    display: fit-content; */
+    display: fit-content;
 }
 
 div.firstContainer-image {
