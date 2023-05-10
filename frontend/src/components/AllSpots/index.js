@@ -15,6 +15,9 @@ function DisplayAllSpots() {
         dispatch(thunkAllSpots())
     }, [dispatch])
     
+
+    if(!allSpots) return <div>I AM LOOOOOOADDDING PLEASE BE PATIENTTTT</div>
+    
     return (
         <div className='allSpots-container'>
         {Object.values(allSpots).map(oneSpot => {
