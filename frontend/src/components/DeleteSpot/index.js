@@ -1,22 +1,32 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { thunkDeleteSpot } from '../../store/spot';
+import { useModal } from "../../context/Modal";
 
 const DeleteSpot = ({spotId}) => {
     const dispatch = useDispatch();
     const history = useHistory()
+    const { closeModal } = useModal();
+    
+    
     const handleDelete = (e) => {
-        e.preventDefault();
+        e.preventDefault()
+        history.push('/spots/current')
         dispatch(thunkDeleteSpot(spotId))
+        .then(closeModal)
     }
   
-    
     
 
     return (
         <>
-        <button onClick={handleDelete}>Delete</button>
+        <h1>Confirm Delete</h1>
+            <p>Are you sure you want to remove this spot from listings?</p>
+                <button onClick={handleDelete}>Yes (Delete Spot)</button>
+            <Link exact to={'/spots/current'}>
+                <button onClick={closeModal}>No (Keep Spot)</button>
+            </Link>
         </>
     )
 }

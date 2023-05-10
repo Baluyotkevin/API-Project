@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -58,9 +58,9 @@ function ProfileButton({ user }) {
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>
-              <NavLink exact to={'/spots/current'} onClick={closeMenu}>
+              <Link exact to={'/spots/current'}>
                 Manage your Spots
-              </NavLink>
+              </Link>
               <button onClick={logout}>Log Out</button>
             </li>
           </>

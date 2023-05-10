@@ -123,10 +123,9 @@ export const thunkDeleteSpot = (spotId) => async dispatch => {
         res = await csrfFetch(`/api/spots/${spotId}`, {
             method: 'DELETE'
         })
-        console.log("THIS IS MY RES", res)
         const deletedSpot = await res.json()
         dispatch(deleteSpot(deletedSpot))
-        // return deletedSpot
+        return deletedSpot
     } catch (err) {
         const errors = await err.json();
         return errors
@@ -191,9 +190,24 @@ const allSpotsReducer = (state = initialState, action) => {
                 }
             }
         case DELETE_SPOT: {
-                const newSpot = { ...state }
-                delete newSpot[action.spotId]
-                return newSpot
+            const newSpots = { ...state };
+            // console.log(state)
+            // console.log(Object.values(state.allSpots).forEach(spot => {
+            //     if (spot.id !== action.spotId) {
+            //         newSpots[spot.id] = spot
+            //     }
+            // }))
+
+            // console.log("MY NEW SPOTS ", newSpots);
+            // const newSpot = { ...state}
+
+            // console.log("THIS IS BEFORE DELETE", newSpot)
+            // console.log("THIS IS KEYING INTO ALLSPOTS", newSpot.allSpots)
+            delete newSpots.allSpots[action.spotId]
+            // console.log(newSpot)
+            // console.log("THIS IS AFTER", newSpot)
+            // console.log("THIS IS WHAT I AM LOOKINMG FOR", newSpot.allSpots)
+                return newSpots
             }  
         default:
             return state;
