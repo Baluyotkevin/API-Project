@@ -66,7 +66,6 @@ export const thunkCurrUserSpot = () => async dispatch => {
     try {
         res = await csrfFetch('/api/spots/current')
         const currUserSpots = await res.json()
-        console.log("THIS IS MY UPDATED SPOOOOT", currUserSpots)
         dispatch(loadCurrUserSpot(currUserSpots))
         return currUserSpots
     } catch (err) {
@@ -118,17 +117,18 @@ export const thunkEditSpot = (spot) => async dispatch => {
     }
 }
 
-export const thunkDeleteSpot = (spot) => async dispatch => {
+export const thunkDeleteSpot = (spotId) => async dispatch => {
     let res;
     try {
-        res = await csrfFetch(`/api/spots/${spot.id}`), {
+        res = await csrfFetch(`/api/spots/${spotId}`, {
             method: 'DELETE'
-        }
+        })
+        console.log("THIS IS MY RES", res)
         const deletedSpot = await res.json()
         dispatch(deleteSpot(deletedSpot))
-        return deletedSpot
+        // return deletedSpot
     } catch (err) {
-        const errors = await res.json()
+        const errors = await err.json();
         return errors
     }
 }
@@ -155,7 +155,6 @@ const allSpotsReducer = (state = initialState, action) => {
 
         case GET_CURR_USER_SPOT: {
             const newSpots = {}
-            console.log("SECOND IS WHAT IM LOOKING:", action.userId)
             const spotsArray = action.userId.Spots
             spotsArray.forEach(spot => {
                 newSpots[spot.id] = spot
@@ -191,9 +190,8 @@ const allSpotsReducer = (state = initialState, action) => {
                     singleSpot: newSpot
                 }
             }
-            case DELETE_SPOT: {
+        case DELETE_SPOT: {
                 const newSpot = { ...state }
-                console.log(newSpot)
                 delete newSpot[action.spotId]
                 return newSpot
             }  

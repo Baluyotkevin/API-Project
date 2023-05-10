@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { thunkCurrUserSpot } from "../../store/spot";
+import  DeleteSpot from '../DeleteSpot'
 
 const DisplayCurrUserSpots = () => {
     const dispatch = useDispatch()
     const currUserSpots = useSelector(state => {
         return Object.values(state.spots.allSpots)
     })
-
-    // console.log("MY CURRENT USER SPOTS", currUserSpots)
+    
     useEffect(() => {
         dispatch(thunkCurrUserSpot())
     }, [dispatch])
+
+    
 
 
     return (
@@ -42,8 +44,10 @@ const DisplayCurrUserSpots = () => {
                                 </div>
                             </div>
                             <div>
-                                <button></button>
-                                <button></button>
+                                <Link exact to={`/spots/${spot.id}/edit`}>
+                                    <button>Update</button>
+                                </Link>
+                                    <DeleteSpot spotId={spot.id}/>
                             </div>
                         
                         </div>
