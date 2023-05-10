@@ -4,6 +4,7 @@ const GET_ALL_SPOTS = 'spot/loadAllSpots';
 const GET_SINGLE_SPOT = 'spot/loadSingleSpot';
 const CREATE_SPOT = 'spot/createSpot';
 const UPDATE_SPOT = 'spot/editSpot';
+const DELETE_SPOT = 'spot/deleteSpot';
 const GET_CURR_USER_SPOT = 'spot/loadCurrUserSpot';
 // all action creators
 
@@ -40,6 +41,13 @@ const editSpot = (spot) => {
     return {
         type: UPDATE_SPOT,
         spot
+    }
+}
+
+const deleteSpot = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        spotId
     }
 }
 
@@ -110,6 +118,22 @@ export const thunkEditSpot = (spot) => async dispatch => {
     }
 }
 
+export const thunkDeleteSpot = (spot) => async dispatch => {
+    let res;
+    try {
+        res = await csrfFetch(`/api/spots/${spot.id}`), {
+            method: 'DELETE'
+        }
+        const deletedSpot = await res.json()
+        dispatch(deleteSpot(deletedSpot))
+        return deletedSpot
+    } catch (err) {
+        const errors = await res.json()
+        return errors
+    }
+}
+
+
 const initialState = {
     allSpots: {},
     singleSpot: {}
@@ -167,6 +191,12 @@ const allSpotsReducer = (state = initialState, action) => {
                     singleSpot: newSpot
                 }
             }
+            case DELETE_SPOT: {
+                const newSpot = { ...state }
+                console.log(newSpot)
+                delete newSpot[action.spotId]
+                return newSpot
+            }  
         default:
             return state;
 
