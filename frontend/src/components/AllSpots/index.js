@@ -28,12 +28,12 @@ function DisplayAllSpots() {
                     </div>
                     <div className='spotDetails-container'>
                         <div>
-                        <p>{oneSpot.city}, {oneSpot.state}</p>
-                        <p>{oneSpot.price}</p>
-                            </div>
-                    <div className='rating-container'>
-                        <p>{oneSpot.avgRating}</p>
-                    </div>
+                            <p>{oneSpot.city}, {oneSpot.state}</p>
+                            <p>{oneSpot.price}</p>
+                        </div>
+                        <div className='rating-container'>
+                            <p>{oneSpot.avgRating}</p>
+                        </div>
                     </div>
                 </div>
             )

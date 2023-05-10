@@ -54,9 +54,16 @@ export const thunkAllSpots = () => async dispatch => {
 }
 
 export const thunkCurrUserSpot = () => async dispatch => {
-    const res = await fetch('/api/spots/current')
-    if (res.ok) {
-        
+    let res;
+    try {
+        res = await csrfFetch('/api/spots/current')
+        const currUserSpots = await res.json()
+        console.log("THIS IS MY UPDATED SPOOOOT", currUserSpots)
+        dispatch(loadCurrUserSpot(currUserSpots))
+        return currUserSpots
+    } catch (err) {
+        const errors = await err.json()
+        return errors
     }
 }
 
@@ -88,16 +95,12 @@ export const thunkCreateSpot = (spot) => async dispatch => {
 
 export const thunkEditSpot = (spot) => async dispatch => {
     let res;
-    console.log("THIS MY SPOT RIGHT HEEEEE", spot)
     try {
         res = await csrfFetch(`/api/spots/${spot.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(spot)
         })
-
-        console.log("THIS IS MY REEEES:", res)
-
             const updatedSpot = await res.json()
             dispatch(editSpot(updatedSpot))
             return updatedSpot
@@ -125,7 +128,20 @@ const allSpotsReducer = (state = initialState, action) => {
                     ...state,
                     allSpots: newSpots
                 }
-            case GET_SINGLE_SPOT:
+
+        case GET_CURR_USER_SPOT: {
+            const newSpots = {}
+            console.log("SECOND IS WHAT IM LOOKING:", action.userId)
+            const spotsArray = action.userId.Spots
+            spotsArray.forEach(spot => {
+                newSpots[spot.id] = spot
+            })
+            return {
+                ...state,
+                allSpots: newSpots
+            }
+        }
+        case GET_SINGLE_SPOT:
                 const newSpot = {}
                 const singleSpot = action.spot;
                 newSpot[singleSpot.id] = singleSpot
@@ -133,7 +149,7 @@ const allSpotsReducer = (state = initialState, action) => {
                     ...state,
                     singleSpot: newSpot
                 }
-            case CREATE_SPOT: {
+        case CREATE_SPOT: {
                 const newSpot = {}
                 const createdSpot = action.spot
                 newSpot[createdSpot.id] = createdSpot
@@ -142,7 +158,7 @@ const allSpotsReducer = (state = initialState, action) => {
                     singleSpot: newSpot
                 }
             }
-            case UPDATE_SPOT: {
+        case UPDATE_SPOT: {
                 const newSpot = {};
                 const updatedSpot = action.spot
                 newSpot[updatedSpot.id] = updatedSpot
