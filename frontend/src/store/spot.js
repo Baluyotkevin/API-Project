@@ -4,12 +4,21 @@ const GET_ALL_SPOTS = 'spot/loadAllSpots';
 const GET_SINGLE_SPOT = 'spot/loadSingleSpot';
 const CREATE_SPOT = 'spot/createSpot';
 const UPDATE_SPOT = 'spot/editSpot';
+const GET_CURR_USER_SPOT = 'spot/loadCurrUserSpot';
 // all action creators
+
 
 const loadAllSpots = (spots) => {
     return {
         type: GET_ALL_SPOTS,
         spots,
+    }
+}
+
+const loadCurrUserSpot = (userId) => {
+    return {
+        type: GET_CURR_USER_SPOT,
+        userId
     }
 }
 
@@ -43,6 +52,14 @@ export const thunkAllSpots = () => async dispatch => {
         dispatch(loadAllSpots(allSpots))
     }
 }
+
+export const thunkCurrUserSpot = () => async dispatch => {
+    const res = await fetch('/api/spots/current')
+    if (res.ok) {
+        
+    }
+}
+
 
 export const thunkSingleSpot = (spotId) => async dispatch => {
     const res = await fetch(`/api/spots/${spotId}`)
