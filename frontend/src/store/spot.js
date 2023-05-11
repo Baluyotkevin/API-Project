@@ -102,7 +102,7 @@ export const thunkCreateSpot = (spot) => async dispatch => {
         });
             const newSpot = await res.json()
             dispatch(createSpot(newSpot))
-            newSpot.spotImages = spot.spotImages.forEach(image => {
+            newSpot.SpotImages = spot.SpotImages.forEach(image => {
                 dispatch(thunkCreateSpotImages(image, newSpot.id))
             })
             return newSpot
@@ -140,9 +140,10 @@ export const thunkEditSpot = (spot) => async dispatch => {
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(spot)
         })
-            const updatedSpot = await res.json()
+        console.log("THIS IS MY RES", spot)
+        const updatedSpot = await res.json()
+        console.log("THIS WHAT IM LOOKIN AT THO", updatedSpot)
             dispatch(editSpot(updatedSpot))
-            console.log("THIS WHAT IM LOOKIN AT THO", updatedSpot)
             // dispatch(thunkSingleSpot)
             return updatedSpot
         } catch (err) {
@@ -221,10 +222,10 @@ const allSpotsReducer = (state = initialState, action) => {
         case CREATE_SPOT_IMAGES: {
             const newSpot = { ...state.singleSpot }
 
-            if (newSpot.spotImages instanceof Array) {
-                newSpot.spotImages.push(action.image)
+            if (newSpot.SpotImages instanceof Array) {
+                newSpot.SpotImages.push(action.image)
             } else {
-                newSpot.spotImages = [action.image];
+                newSpot.SpotImages = [action.image];
             }
 
             return {

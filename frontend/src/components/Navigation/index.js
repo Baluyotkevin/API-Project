@@ -13,16 +13,17 @@ function Navigation({ isLoaded }){
     <div className="nav-container">
     <ul className='nav-list'>
       <li className="nav-logo"> 
-        {/* <NavLink exact to="/">Home</NavLink> */}
         <NavLink exact to='/'><img className='airbnbLogo' src={AirbnbLogo}/></NavLink> 
       </li>
+      {sessionUser !== null ? <NavLink to='/spots/new'><li>Create a new Spot</li> </NavLink>: null}
       {isLoaded && (
         <li className='nav-profile-button'>
           <ProfileButton  user={sessionUser} />
         </li>
       )}
+
     </ul>
-    
+
     </div>
   );
 }

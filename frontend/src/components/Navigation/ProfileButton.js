@@ -41,6 +41,8 @@ function ProfileButton({ user }) {
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
+  
+
   return (
     <>
       <div className="icon-container">
@@ -54,12 +56,13 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
+            {/* <li>Hello {user.username}</li> */}
+            <li>Hello {user.firstName}</li>
+            {/* {user.lastName} */}
             <li>{user.email}</li>
             <li>
               <Link exact to={'/spots/current'}>
-                Manage your Spots
+                Manage Spots
               </Link>
               <button onClick={logout}>Log Out</button>
             </li>

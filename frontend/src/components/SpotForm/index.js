@@ -16,17 +16,18 @@ const SpotForm = ({ spot, formType }) => {
     const [name, setName] = useState(spot?.name)
     const [description, setDescription] = useState(spot?.description)
     const [price, setPrice] = useState(spot?.price)
-    const [url, setUrl] = useState(spot?.url)
-    const [urlTwo, setUrlTwo] = useState(spot?.urlTwo)
-    const [urlThree, setUrlThree] = useState(spot?.urlThree)
-    const [urlFour, setUrlFour] = useState(spot?.urlFour)
-    const [urlFive, setUrlFive] = useState(spot?.urlFive)
+    // i thought this would work but it actually does not 
+    const [url, setUrl] = useState(spot?.SpotImages[0].url)
+    const [urlTwo, setUrlTwo] = useState(spot?.SpotImages[1].url)
+    const [urlThree, setUrlThree] = useState(spot?.SpotImages[2].url)
+    const [urlFour, setUrlFour] = useState(spot?.SpotImages[3].url)
+    const [urlFive, setUrlFive] = useState(spot?.SpotImages[4].url)
     const [errors, setErrors] = useState({})
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
-        const spotImages = [];
+        const SpotImages = [];
         spot = {
             ...spot,
             address,
@@ -38,7 +39,7 @@ const SpotForm = ({ spot, formType }) => {
             name,
             description,
             price,
-            spotImages: [
+            SpotImages: [
                 {
                     preview:true, 
                     url: url
@@ -69,8 +70,22 @@ const SpotForm = ({ spot, formType }) => {
             const newSpot = await dispatch(thunkCreateSpot(spot))
             spot = newSpot
         } 
+
+        
         
         if(spot.errors) {
+            // console.log("THIS MY SPOT THO", spot.errors)
+            // spot.errors.previewImage = 'hello'
+            // if (!spot.spotImages.length) {
+            //     console.log('hellllooo')
+            //     spot.errors.previewImage = "Preview Image is required"
+            // }
+            // console.log("THIS SAFTER", spot.errors)
+            // spot.spotImages.forEach(spot => {
+            //     if (spot.endsWith('.jpg') || spot.endsWith('png' || spot.endsWith('.jpeg'))) {
+            //         spot.errors.imageUrl = "Image URL must end in .png, .jpg, or .jpeg"
+            //     }
+            // })
             setErrors(spot.errors)
         } else {
             history.push(`/spots/${spot.id}`)
