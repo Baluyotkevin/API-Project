@@ -17,11 +17,11 @@ const SpotForm = ({ spot, formType }) => {
     const [description, setDescription] = useState(spot?.description)
     const [price, setPrice] = useState(spot?.price)
     // i thought this would work but it actually does not 
-    const [url, setUrl] = useState(spot?.SpotImages[0].url)
-    const [urlTwo, setUrlTwo] = useState(spot?.SpotImages[1].url)
-    const [urlThree, setUrlThree] = useState(spot?.SpotImages[2].url)
-    const [urlFour, setUrlFour] = useState(spot?.SpotImages[3].url)
-    const [urlFive, setUrlFive] = useState(spot?.SpotImages[4].url)
+    const [url, setUrl] = useState(spot?.url)
+    const [urlTwo, setUrlTwo] = useState(spot?.urlTwo)
+    const [urlThree, setUrlThree] = useState(spot?.urlThree)
+    const [urlFour, setUrlFour] = useState(spot?.urlFour)
+    const [urlFive, setUrlFive] = useState(spot?.urlFive)
     const [errors, setErrors] = useState({})
     
     const handleSubmit = async (e) => {
