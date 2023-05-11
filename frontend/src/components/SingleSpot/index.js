@@ -22,7 +22,7 @@ function DisplaySingleSpot() {
     }, [dispatch, spotId])
     
     if(!singleSpot || !allReviews || !singleSpot.SpotImages) return <p>PLEASE WAIT I"M LOADING</p>
-
+    console.log(singleSpot)
     return (
 
         <div className='singleSpot-body'>

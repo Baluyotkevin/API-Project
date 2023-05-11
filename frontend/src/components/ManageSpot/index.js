@@ -43,13 +43,9 @@ const DisplayCurrUserSpots = () => {
                                 </div>
                             </div>
                             <div>
-    
                                 <Link exact to={`/spots/${spot.id}/edit`}>
                                     <button>Update</button>
                                 </Link>
-                                    {/* <button>
-                                        <DeleteSpot spotId={spot.id}/>
-                                    </button> */}
                                         <OpenModalButton 
                                         buttonText='Delete'
                                         modalComponent={<DeleteSpot spotId={spot.id} />}

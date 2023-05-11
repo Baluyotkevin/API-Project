@@ -28,9 +28,10 @@ const validateSpots = [
     check('name')
       .exists({ checkFalsy: true })
       .isLength({ max: 50 })
-      .withMessage('Name must be less than 50 characters'),
+      .withMessage('Name is required'),
     check('description')
       .exists({ checkFalsy: true })
+      .isLength({ min: 30 })
       .withMessage('Description needs a minimum of 30 characters'),
     check('price')
       .exists({ checkFalsy: true })
@@ -534,7 +535,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
     await spot.destroy();
     res.status(200).json({
-        message: "Successfully deleted"
+        spotId
     });
 });
 

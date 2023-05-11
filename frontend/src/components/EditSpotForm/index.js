@@ -6,11 +6,10 @@ import SpotForm from '../SpotForm';
 
 const EditSpotForm = () => {
     const { spotId } = useParams();
+    const dispatch = useDispatch()
     const spot = useSelector(state => {
-        console.log("THIS IS MY  STAAATE", state.spots.singleSpot[spotId])
         return state.spots.singleSpot[spotId]
     })
-    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(thunkSingleSpot(spotId))
