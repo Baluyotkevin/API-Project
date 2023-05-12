@@ -42,40 +42,56 @@ const SpotForm = ({ spot, formType }) => {
             price,
             SpotImages: [
                 {
-                    preview:true, 
-                    url: url
+                    url: url,
+                    preview:true 
                 },
                 {
-                    preview:false, 
-                    url: urlTwo
+                    url: urlTwo,
+                    preview: false 
                 },
                 {
-                    preview:false, 
-                    url: urlThree
+                    url: urlThree,
+                    preview: false 
                 },
                 {
-                    preview:false, 
-                    url: urlFour
+                    url: urlFour,
+                    preview:false 
                 },
                 {
-                    preview: false,
-                    url: urlFive
+                    url: urlFive,
+                    preview: false
                 }
             ]
         }
-        
+        console.log("THIS IS WHAT WE'RE GOING TO BE SENDING TO THE BACKEND TO BE CREATED", spot)
         if (formType === 'Update your Spot') {
             const editSpot = await dispatch(thunkEditSpot(spot))
+            console.log("THIS HAPPENS AFTER WE WAITED FOR THE DISPATCH TO")
             spot = editSpot
         } else if (formType === 'Create a new Spot') {
             const newSpot = await dispatch(thunkCreateSpot(spot))
             spot = newSpot
-        } 
+        }
 
-        
-        
+
+        if (!url) {
+            spot.errors.previewImage = "Preview image is required"
+        }
+
+        if (urlTwo) {
+            if(!urlTwo.endsWith('.jpg')) {
+                if (!urlTwo.endsWith('.jpeg')) {
+                    if (!urlTwo.endsWith('.png')) {
+                        spot.errors.imageUrl = "Image URL must end in .png, .jpg or .jpeg"
+                    }
+                } 
+            }
+        }
+        if (!urlTwo) {
+            spot.errors.imageUrl = "Image URL must end in .png, .jpg or .jpeg"
+        }
         if(spot.errors) {
-            // console.log("THIS MY SPOT THO", spot.errors)
+            console.log("THIS MY SPOT THO", spot)
             // spot.errors.previewImage = 'hello'
             // if (!spot.spotImages.length) {
             //     console.log('hellllooo')
@@ -201,12 +217,14 @@ const SpotForm = ({ spot, formType }) => {
             <label>
                 <h3>Liven up your spot with photos</h3>
                 <p>Submit a link to at least one photo to publish your spot.</p>
+                <div className='errors'>{errors.previewImage}</div>
                     <input 
                     placeholder ='Preview Image URL'
                     type='text'
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                     />
+                    <div className='errors'>{errors.imageUrl}</div>
                     <input 
                     placeholder ='Image URL'
                     type='text'

@@ -19,35 +19,27 @@ function DisplaySingleSpot() {
     const singleSpot = useSelector(state=> {
         return state.spots.singleSpot[spotId]
     })
+    console.log("THIS MYT SINGLEE SPOOOOT", singleSpot)
     const allReviews = useSelector(state => {
-        // console.log("WHAT IS MY STATE ", state)
+        console.log("THIS MY STATE1", state)
         return state.reviews.spot
     })
 
-    console.log("THIS WHAT IM LOOKIN AT THOUGH", allReviews)
-    console.log(4 in allReviews === true)
-    // {Object.values(allReviews).forEach(review => {
-        // if(review.userId === currUser.id) {
-        //     console.log('helllloooo')
-            // <OpenModalButton
-            //        buttonText='Post Your Review'
-            //                modalComponent={<ReviewForm 
-            //                     disabled={false}
-            //                     spotId={singleSpot.id}
-            //                     />}
-        // } 
-        // : return null;
-    // })}
+    // console.log()
+    const checkReviews = [];
+    Object.values(allReviews).forEach(rev=> checkReviews.push(rev.userId))
+    // console.log("THIS WHAT IM LOOKIN AT THOUGH", allReviews)
+
+    // console.log(" ILOOK AT THIS AFTER", checkReviews )
 
     useEffect(() => {
         dispatch(thunkSingleSpot(spotId))
         dispatch(thunkAllReviewsSpot(spotId))
     }, [dispatch, spotId])
-    
+
     if(!singleSpot || !allReviews || !singleSpot.SpotImages) return <p>PLEASE WAIT I"M LOADING</p>
-    console.log(singleSpot)    
-    // console.log("THIS IS MY SINGLE SPOT", singleSpot)
-    // console.log("THIS IS MY ALL REVIEWS ", allReviews)
+
+    
     return (
         <div className='singleSpot-body'>
             <div className='firstContainer'>
@@ -79,7 +71,7 @@ function DisplaySingleSpot() {
                         <p className='numReview'>{singleSpot.numReviews} reviews</p>
                     </div>
                         <div className='button-container'>
-                            <button>Reserve</button>
+                            <button onClick={() => alert('Feature coming soon...')}>Reserve</button>
                         </div>
                 </div>
             </div>
@@ -88,9 +80,8 @@ function DisplaySingleSpot() {
             <h3><i className="fa-solid fa-star"></i>{singleSpot.avgStarRating}</h3>
             <h3>{singleSpot.numReviews} reviews</h3>
         </div>
-
-                {/* <div>
-                    {currUser.id in allReviews !== true ? 
+                <div>
+                    {currUser ? ((checkReviews.includes(currUser.id) || currUser.id === singleSpot.ownerId) ? 
                     null
                      :
                     <OpenModalButton
@@ -99,25 +90,27 @@ function DisplaySingleSpot() {
                        disabled={false}
                         spotId={singleSpot.id}
                                     />}
-                  />}
-                </div> */}
+                  />) : <p>Need to be logged in to post a review!</p> }
+                </div>
         <div className='reviews-container'>
                 <ul>
             {Object.values(allReviews).map(review => {
-                // console.log(review)
-                console.log(review)
                 return (
                     <li>
-                        {currUser.id === review.userId ?
+
+                        {!currUser ? null : (currUser.id === review.userId ?
                             <OpenModalButton
                             buttonText='Update'
                             modalComponent={<EditReview review={review}/>}
-                            /> : null
+                            /> : null)
                         }
-                        {currUser.id === review.userId ?
-                            <DeleteReview reviewId={review.id}/> : null
+                        {!currUser ? null : (currUser.id === review.userId ?
+                            <OpenModalButton
+                            buttonText='Delete'
+                            modalComponent={<DeleteReview reviewId={review.id}/>} />
+                            : null)
                         }
-                        <h5>{currUser.firstName}</h5>
+                        <h5>{!currUser ? review.User.firstName : currUser.firstName}</h5>
                         <h5>{review.createdAt.slice(0, 10)}</h5>
                         <p>{review.review}</p>
                         {/* {review.userId === currUser.id ? } */}

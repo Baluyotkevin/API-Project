@@ -48,9 +48,9 @@ const ReviewForm = ({disabled, spotId}) => {
                 <div
             className={stars >= 1 ? "filled" : "empty"}
             onMouseEnter={() => { if (!disabled) setStars(1)} }
-            onMouseLeave={() => { if (disabled) setStars(1)} }
+            onMouseLeave={() => { if (!disabled) setStars(1)} }
             onClick={() => { if (!disabled) parseInt(1)} }
-            value={1}
+            // value={stars}
             >
                 <i className="fa-regular fa-star"></i>
       </div>
@@ -59,7 +59,7 @@ const ReviewForm = ({disabled, spotId}) => {
             onMouseEnter={() => { if (!disabled) setStars(2)} }
             onMouseLeave={() => { if (!disabled) setStars(stars)} }
             onClick={() => { if (!disabled) parseInt(2)} }
-            value={2}
+            // value={stars}
             >
         <i className="fa-regular fa-star"></i>
                 </div>
@@ -68,7 +68,7 @@ const ReviewForm = ({disabled, spotId}) => {
             onMouseEnter={() => { if (!disabled) setStars(3)} }
             onMouseLeave={() => { if (!disabled) setStars(stars)} }
             onClick={() => { if (!disabled) parseInt(3)} }
-            value={3}
+            // value={stars}
             >
         <i className="fa-regular fa-star"></i>
       </div>
@@ -77,7 +77,7 @@ const ReviewForm = ({disabled, spotId}) => {
             onMouseEnter={() => { if (!disabled) setStars(4)} }
             onMouseLeave={() => { if (!disabled) setStars(stars)} }
             onClick={() => { if (!disabled) parseInt(4)} }
-            value={4}
+            // value={stars}
             >
         <i className="fa-regular fa-star"></i>
       </div>
@@ -86,14 +86,14 @@ const ReviewForm = ({disabled, spotId}) => {
             onMouseEnter={() => { if (!disabled) setStars(5)} }
             onMouseLeave={() => { if (!disabled) setStars(stars)} }
             onClick={() => { if (!disabled) parseInt(5)} }
-            value={5}
+            // value={stars}
             >
         <i className="fa-regular fa-star"></i>
       </div> 
       </div>
       <div className='errors'>{errors.stars}</div>
                 <div>
-                <button type="submit">Submit Your Review</button>
+                <button type="submit" disabled={stars < 0 && rev.length < 10}>Submit Your Review</button>
                 </div>
                 </form>
             </div>

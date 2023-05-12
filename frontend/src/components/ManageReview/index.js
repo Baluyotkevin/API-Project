@@ -9,13 +9,10 @@ import DeleteReview from '../DeleteReview'
 
 const DisplayCurrUserReviews = () => {
     const dispatch = useDispatch()
-    const history = useHistory()
     const currUserReviews = useSelector(state => {
-        console.log(state.reviews)
         return state.reviews.user
     })
     console.log(currUserReviews)
-
     useEffect(() => {
         dispatch(thunkCurrUserReviews())
     }, [dispatch])
@@ -29,7 +26,7 @@ const DisplayCurrUserReviews = () => {
                 {Object.values(currUserReviews).map(review => {
                     // console.log("THIS IS IT",review)
                     return (
-                        <div>
+                        <div key={review.id}>
                                 <h3>{review.Spot.name}</h3>
                                 <p>{review.updatedAt.slice(0, 10)}</p>
                                 <p>{review.review}</p>
@@ -38,7 +35,10 @@ const DisplayCurrUserReviews = () => {
                                 buttonText='Update'
                                 modalComponent={<EditReview review={review}/>}
                                 />
-                                <DeleteReview reviewId={review.id} />
+                                <OpenModalButton
+                                buttonText='Delete'
+                                modalComponent={<DeleteReview reviewId={review.id} />}
+                                 />
                             </div>
                         </div>
                     )

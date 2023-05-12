@@ -46,7 +46,6 @@ export const thunkAllReviewsSpot = (spotId) => async dispatch => {
     const res = await fetch(`/api/spots/${spotId}/reviews`)
     if (res.ok) {
         const allReviewsSpot = await res.json()
-        // console.log(allReviewsSpot)
             dispatch(loadSpotReviews(allReviewsSpot))
     }
 }
@@ -57,7 +56,7 @@ export const thunkCurrUserReviews = () => async dispatch => {
         res = await csrfFetch('/api/reviews/current')
             const allReviews = await res.json()
             dispatch(loadCurrUserReviews(allReviews))
-            return allReviews
+            
     } catch (err) {
         const errors = await err.json();
         return errors
@@ -107,6 +106,7 @@ export const thunkDeleteReview = (reviewId) => async dispatch => {
         })
         const deletedReview = await res.json()
         dispatch(deleteReviews(reviewId))
+        return deletedReview
     } catch (err) {
         const errors = await err.json()
         return errors
@@ -165,14 +165,28 @@ const allReviewsReducer = (state = initialState, action) => {
             }
         }
         case DELETE_REVIEW: {
-            const newReview = { ...state.user };
-            console.log(action)
+            console.log("THIS IS CURRENTLY MY STATE", state)
+            const newReview = { ...state.spot};
+            const newUser= { ...state.user } 
+
             delete newReview[action.reviewId]
+            delete newUser[action.reviewId]
             return {
-                ...state,
-                user: newReview
+                spot: newReview,
+                user: newUser
             }
         }
+
+        // const newReview = { ...state.spot.user };
+        //     console.log("THIS IS MY STAAATE ", state)
+        //     console.log("THIS RIGHT HEREEEEEE", newReview)
+        //     delete newReview[action.reviewId]
+        //     console.log("THIUS IS WRIGHT HEREEE", newReview)
+        //     console.log("THSI MY NEW STAATE",)
+        //     return {
+        //         ...state,
+        //         spot: newReview
+        //     }
 
         default: 
         return state;
