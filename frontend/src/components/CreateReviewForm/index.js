@@ -18,7 +18,7 @@ const ReviewForm = ({disabled, spotId}) => {
         const revObj = {
             spotId: spotId,
             review: rev,
-            stars
+            stars: stars
         }
         console.log(spotId)
         
@@ -48,11 +48,11 @@ const ReviewForm = ({disabled, spotId}) => {
                 <div
             className={stars >= 1 ? "filled" : "empty"}
             onMouseEnter={() => { if (!disabled) setStars(1)} }
-            onMouseLeave={() => { if (!disabled) setStars(stars)} }
+            onMouseLeave={() => { if (disabled) setStars(1)} }
             onClick={() => { if (!disabled) parseInt(1)} }
             value={1}
             >
-        <i className="fa-regular fa-star"></i>
+                <i className="fa-regular fa-star"></i>
       </div>
                  <div
             className={stars >= 2 ? "filled" : "empty"}

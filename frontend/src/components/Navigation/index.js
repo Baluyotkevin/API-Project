@@ -15,9 +15,9 @@ function Navigation({ isLoaded }){
       <li className="nav-logo"> 
         <NavLink exact to='/'><img className='airbnbLogo' src={AirbnbLogo}/></NavLink> 
       </li>
-      {sessionUser !== null ? <NavLink to='/spots/new'><li>Create a new Spot</li> </NavLink>: null}
       {isLoaded && (
         <li className='nav-profile-button'>
+          {sessionUser !== null ? <NavLink to='/spots/new'><li>Create a new Spot</li> </NavLink>: null}
           <ProfileButton  user={sessionUser} />
         </li>
       )}

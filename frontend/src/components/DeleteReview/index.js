@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { thunkDeleteReview } from '../../store/review';
-import { useModal } from "../../context/Modal";
 
 const DeleteReview = ({reviewId}) => {
     const dispatch = useDispatch();
@@ -10,8 +9,8 @@ const DeleteReview = ({reviewId}) => {
     
     const handleDelete = (e) => {
         e.preventDefault()
-        history.push('/reviews/current')
         dispatch(thunkDeleteReview(reviewId))
+        // history.push('/reviews/current')
     }
 
     return (

@@ -21,6 +21,7 @@ const DisplayCurrUserReviews = () => {
     }, [dispatch])
 
     if(!currUserReviews) return <>I AM LOADING</>
+    
     return (
         <div>
             <h2>Manage your Reviews</h2>

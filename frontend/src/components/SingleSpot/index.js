@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { thunkSingleSpot } from '../../store/spot';
 import { thunkAllReviewsSpot } from '../../store/review';
+import EditReview from "../EditReview";
+import DeleteReview from "../DeleteReview";
 import OpenModalButton from "../OpenModalButton";
 import ReviewForm from "../CreateReviewForm";
 import './SingleSpot.css'
@@ -18,9 +20,25 @@ function DisplaySingleSpot() {
         return state.spots.singleSpot[spotId]
     })
     const allReviews = useSelector(state => {
-        console.log("WHAT IS MY STATE ", state)
+        // console.log("WHAT IS MY STATE ", state)
         return state.reviews.spot
     })
+
+    console.log("THIS WHAT IM LOOKIN AT THOUGH", allReviews)
+    console.log(4 in allReviews === true)
+    // {Object.values(allReviews).forEach(review => {
+        // if(review.userId === currUser.id) {
+        //     console.log('helllloooo')
+            // <OpenModalButton
+            //        buttonText='Post Your Review'
+            //                modalComponent={<ReviewForm 
+            //                     disabled={false}
+            //                     spotId={singleSpot.id}
+            //                     />}
+        // } 
+        // : return null;
+    // })}
+
     useEffect(() => {
         dispatch(thunkSingleSpot(spotId))
         dispatch(thunkAllReviewsSpot(spotId))
@@ -71,26 +89,38 @@ function DisplaySingleSpot() {
             <h3>{singleSpot.numReviews} reviews</h3>
         </div>
 
-                <div>
+                {/* <div>
+                    {currUser.id in allReviews !== true ? 
+                    null
+                     :
                     <OpenModalButton
-                    buttonText='Post Your Review'
-                    
+                     buttonText='Post Your Review'
                     modalComponent={<ReviewForm 
-                        disabled={false}
+                       disabled={false}
                         spotId={singleSpot.id}
-                        />}
-                    />
-                </div>
+                                    />}
+                  />}
+                </div> */}
         <div className='reviews-container'>
                 <ul>
             {Object.values(allReviews).map(review => {
                 // console.log(review)
                 console.log(review)
-                return (   
+                return (
                     <li>
+                        {currUser.id === review.userId ?
+                            <OpenModalButton
+                            buttonText='Update'
+                            modalComponent={<EditReview review={review}/>}
+                            /> : null
+                        }
+                        {currUser.id === review.userId ?
+                            <DeleteReview reviewId={review.id}/> : null
+                        }
                         <h5>{currUser.firstName}</h5>
                         <h5>{review.createdAt.slice(0, 10)}</h5>
                         <p>{review.review}</p>
+                        {/* {review.userId === currUser.id ? } */}
                     </li>
                 )
             })}
