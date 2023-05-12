@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { thunkCreateSpot, thunkEditSpot } from '../../store/spot'
+
 import './SpotForm.css'
 
 const SpotForm = ({ spot, formType }) => {
@@ -16,11 +17,18 @@ const SpotForm = ({ spot, formType }) => {
     const [name, setName] = useState(spot?.name)
     const [description, setDescription] = useState(spot?.description)
     const [price, setPrice] = useState(spot?.price)
+    // i thought this would work but it actually does not 
+    const [url, setUrl] = useState(spot?.url)
+    const [urlTwo, setUrlTwo] = useState(spot?.urlTwo)
+    const [urlThree, setUrlThree] = useState(spot?.urlThree)
+    const [urlFour, setUrlFour] = useState(spot?.urlFour)
+    const [urlFive, setUrlFive] = useState(spot?.urlFive)
     const [errors, setErrors] = useState({})
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
+        const SpotImages = [];
         spot = {
             ...spot,
             address,
@@ -31,7 +39,29 @@ const SpotForm = ({ spot, formType }) => {
             lng,
             name,
             description,
-            price
+            price,
+            SpotImages: [
+                {
+                    preview:true, 
+                    url: url
+                },
+                {
+                    preview:false, 
+                    url: urlTwo
+                },
+                {
+                    preview:false, 
+                    url: urlThree
+                },
+                {
+                    preview:false, 
+                    url: urlFour
+                },
+                {
+                    preview: false,
+                    url: urlFive
+                }
+            ]
         }
         
         if (formType === 'Update your Spot') {
@@ -41,10 +71,22 @@ const SpotForm = ({ spot, formType }) => {
             const newSpot = await dispatch(thunkCreateSpot(spot))
             spot = newSpot
         } 
+
         
-        // console.log("THIS IS WHAT IM LOOKING AT:", spot)
         
         if(spot.errors) {
+            // console.log("THIS MY SPOT THO", spot.errors)
+            // spot.errors.previewImage = 'hello'
+            // if (!spot.spotImages.length) {
+            //     console.log('hellllooo')
+            //     spot.errors.previewImage = "Preview Image is required"
+            // }
+            // console.log("THIS SAFTER", spot.errors)
+            // spot.spotImages.forEach(spot => {
+            //     if (spot.endsWith('.jpg') || spot.endsWith('png' || spot.endsWith('.jpeg'))) {
+            //         spot.errors.imageUrl = "Image URL must end in .png, .jpg, or .jpeg"
+            //     }
+            // })
             setErrors(spot.errors)
         } else {
             history.push(`/spots/${spot.id}`)
@@ -156,6 +198,40 @@ const SpotForm = ({ spot, formType }) => {
                     />
                 </div>
             <div className='errors'>{errors.price}</div>
+            <label>
+                <h3>Liven up your spot with photos</h3>
+                <p>Submit a link to at least one photo to publish your spot.</p>
+                    <input 
+                    placeholder ='Preview Image URL'
+                    type='text'
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    />
+                    <input 
+                    placeholder ='Image URL'
+                    type='text'
+                    value={urlTwo}
+                    onChange={(e) => setUrlTwo(e.target.value)}
+                    />
+                    <input 
+                    placeholder ='Image URL'
+                    type='text'
+                    value={urlThree}
+                    onChange={(e) => setUrlThree(e.target.value)}
+                    />
+                    <input 
+                    placeholder ='Image URL'
+                    type='text'
+                    value={urlFour}
+                    onChange={(e) => setUrlFour(e.target.value)}
+                    />
+                    <input 
+                    placeholder ='Image URL'
+                    type='text'
+                    value={urlFive}
+                    onChange={(e) => setUrlFive(e.target.value)}
+                    />
+            </label>
             <button type="submit" className='spot-button'>Create Spot</button>
         </form>
         </div>

@@ -4,27 +4,32 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import { thunkSingleSpot } from '../../store/spot';
 import { thunkAllReviewsSpot } from '../../store/review';
+import OpenModalButton from "../OpenModalButton";
+import ReviewForm from "../CreateReviewForm";
 import './SingleSpot.css'
 
 function DisplaySingleSpot() {
     const dispatch = useDispatch();
     const { spotId } = useParams()
+    const currUser = useSelector(state => {
+        return state.session.user
+    })
     const singleSpot = useSelector(state=> {
         return state.spots.singleSpot[spotId]
     })
     const allReviews = useSelector(state => {
+        console.log("WHAT IS MY STATE ", state)
         return state.reviews.spot
     })
-    
     useEffect(() => {
         dispatch(thunkSingleSpot(spotId))
         dispatch(thunkAllReviewsSpot(spotId))
     }, [dispatch, spotId])
     
     if(!singleSpot || !allReviews || !singleSpot.SpotImages) return <p>PLEASE WAIT I"M LOADING</p>
-
+    // console.log("THIS IS MY SINGLE SPOT", singleSpot)
+    // console.log("THIS IS MY ALL REVIEWS ", allReviews)
     return (
-
         <div className='singleSpot-body'>
             <div className='firstContainer'>
                 <div className='firstContainer-info'>
@@ -65,13 +70,24 @@ function DisplaySingleSpot() {
             <h3>{singleSpot.numReviews} reviews</h3>
         </div>
 
+                <div>
+                    <OpenModalButton
+                    buttonText='Post Your Review'
+                    
+                    modalComponent={<ReviewForm 
+                        disabled={false}
+                        spotId={singleSpot.id}
+                        />}
+                    />
+                </div>
         <div className='reviews-container'>
-            <ul>
+                <ul>
             {Object.values(allReviews).map(review => {
                 // console.log(review)
+                console.log(review)
                 return (   
                     <li>
-                        <h5>{review.User.firstName}</h5>
+                        <h5>{currUser.firstName}</h5>
                         <h5>{review.createdAt.slice(0, 10)}</h5>
                         <p>{review.review}</p>
                     </li>

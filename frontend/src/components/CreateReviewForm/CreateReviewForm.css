@@ -1,0 +1,12 @@
+.star-input .filled {
+    color: saddlebrown;
+  }
+  
+.star-input .empty {
+    color: burlywood;
+  }
+
+.star-input {
+    display: flex;
+    margin-right: 4px;
+  }

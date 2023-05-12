@@ -6,7 +6,7 @@ import { useModal } from "../../context/Modal";
 
 const DeleteSpot = ({spotId}) => {
     const dispatch = useDispatch();
-    const history = useHistory()
+    const history = useHistory();
     const { closeModal } = useModal();
     
     

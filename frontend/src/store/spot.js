@@ -4,7 +4,7 @@ const GET_ALL_SPOTS = 'spot/loadAllSpots';
 const GET_SINGLE_SPOT = 'spot/loadSingleSpot';
 const CREATE_SPOT = 'spot/createSpot';
 const CREATE_SPOT_IMAGES = 'spot/createSpotImages'
-const UPDATE_SPOT = 'spot/editSpot';
+const UPDATE_SPOT = 'spot/updateSpot';
 const DELETE_SPOT = 'spot/deleteSpot';
 const GET_CURR_USER_SPOT = 'spot/loadCurrUserSpot';
 
@@ -104,7 +104,7 @@ export const thunkCreateSpot = (spot) => async dispatch => {
             dispatch(createSpot(newSpot))
             newSpot.SpotImages = spot.SpotImages.forEach(image => {
                 dispatch(thunkCreateSpotImages(image, newSpot.id))
-            })
+                })
             return newSpot
     } catch (err) {
         const errors = await err.json();
@@ -140,9 +140,9 @@ export const thunkEditSpot = (spot) => async dispatch => {
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(spot)
         })
-        console.log("THIS IS MY RES", spot)
+        // console.log("THIS IS MY RES", spot)
         const updatedSpot = await res.json()
-        console.log("THIS WHAT IM LOOKIN AT THO", updatedSpot)
+        // console.log("THIS WHAT IM LOOKIN AT THO", updatedSpot)
             dispatch(editSpot(updatedSpot))
             // dispatch(thunkSingleSpot)
             return updatedSpot
@@ -159,10 +159,10 @@ export const thunkDeleteSpot = (spotId) => async dispatch => {
         res = await csrfFetch(`/api/spots/${spotId}`, {
             method: 'DELETE'
         })
-        const deletedSpot = await res.json()
+        const deletedSpot = await res.json() 
         dispatch(deleteSpot(spotId))
         // dispatch(thunkCurrUserSpot())
-        console.log("THIS IS MY deletedSpot", deletedSpot)
+        // console.log("THIS IS MY deletedSpot", deletedSpot)
         // return deletedSpot
     } catch (err) {
         const errors = await err.json();

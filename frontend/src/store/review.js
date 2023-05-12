@@ -1,7 +1,10 @@
 import { csrfFetch } from "./csrf";
 
-const GET_ALL_REVIEWS_CURR_USER = 'spot/loadCurrUserReviews';
-const GET_ALL_REVIEWS_SPOT = 'spot/loadSpotReviews'
+const GET_ALL_REVIEWS_CURR_USER = 'review/loadCurrUserReviews';
+const GET_ALL_REVIEWS_SPOT = 'review/loadSpotReviews';
+const CREATE_REVIEW = 'review/createReview';
+const UPDATE_REVIEW = 'review/updateReview';
+const DELETE_REVIEW = 'review/deleteReview';
 
 const loadCurrUserReviews= (userId) => {
     return {
@@ -17,6 +20,36 @@ const loadSpotReviews = (spot) => {
     }
 }
 
+const createReviews = (review) => {
+    return {
+        type: CREATE_REVIEW,
+        review
+    }
+}
+
+const editReviews = (review) => {
+    return {
+        type: UPDATE_REVIEW,
+        review
+    }
+}
+
+const deleteReviews = (reviewId) => {
+    return {
+        type: DELETE_REVIEW,
+        reviewId
+    }
+}
+
+
+export const thunkAllReviewsSpot = (spotId) => async dispatch => {
+    const res = await fetch(`/api/spots/${spotId}/reviews`)
+    if (res.ok) {
+        const allReviewsSpot = await res.json()
+        // console.log(allReviewsSpot)
+            dispatch(loadSpotReviews(allReviewsSpot))
+    }
+}
 
 export const thunkCurrUserReviews = () => async dispatch => {
     let res;
@@ -31,12 +64,52 @@ export const thunkCurrUserReviews = () => async dispatch => {
     }
 }
 
-export const thunkAllReviewsSpot = (spotId) => async dispatch => {
-    const res = await fetch(`/api/spots/${spotId}/reviews`)
-    if (res.ok) {
-        const allReviewsSpot = await res.json()
-        // console.log(allReviewsSpot)
-            dispatch(loadSpotReviews(allReviewsSpot))
+
+export const thunkCreateReview = (review) => async dispatch => {
+    let res;
+    // console.log("WHAT IS THIS ", review)
+    try {
+        res = await csrfFetch(`/api/spots/${review.spotId}/reviews`, {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json'},
+           body: JSON.stringify(review)
+       })
+       const newReview = await res.json()
+       dispatch(createReviews(newReview))
+       return newReview
+    } catch (err) {
+        const errors = await err.json()
+        return errors
+    }
+}
+
+export const thunkEditReview = (review) => async dispatch => {
+    let res;
+    try {
+        res = await csrfFetch(`/api/reviews/${review.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(review)
+        })
+        const updatedReview = await res.json()
+        dispatch(editReviews(updatedReview))
+    } catch (err) {
+        const errors = await err.json();
+        return errors
+    }
+}
+
+export const thunkDeleteReview = (reviewId) => async dispatch => {
+    let res;
+    try {
+        res = await csrfFetch(`/api/reviews/${reviewId}`, {
+            method: 'DELETE'
+        })
+        const deletedReview = await res.json()
+        dispatch(deleteReviews(reviewId))
+    } catch (err) {
+        const errors = await err.json()
+        return errors
     }
 }
 
@@ -45,7 +118,7 @@ const initialState = {
     user: {}
 }
 
-const allReviewsReducer = (state = {}, action) => {
+const allReviewsReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_ALL_REVIEWS_SPOT: {
             const newSpotReviews = {};
@@ -67,6 +140,37 @@ const allReviewsReducer = (state = {}, action) => {
             return {
                 ...state,
                 user: newReviews
+            }
+        }
+        case CREATE_REVIEW: {
+            const newReview = {};
+            const review = action.review
+            newReview[review.id] = review
+            console.log("THSI WHAT IM LOOKIN AT THO", action)
+            console.log("WHAT IS MY STATE THO", state)
+            return {
+                ...state,
+                spot: { ...state.spot, ...newReview}
+            }
+        }
+        case UPDATE_REVIEW: {
+            const newReview = {};
+
+            const updatedReview = action.review
+            newReview[updatedReview.id] = updatedReview
+            return {
+                ...state,
+                user: newReview
+                // { ...state.user, newReview}
+            }
+        }
+        case DELETE_REVIEW: {
+            const newReview = { ...state.user };
+            console.log(action)
+            delete newReview[action.reviewId]
+            return {
+                ...state,
+                user: newReview
             }
         }
 
