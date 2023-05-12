@@ -6,13 +6,11 @@ import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 
-
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const history = useHistory()
   const ulRef = useRef();
-
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -64,10 +62,10 @@ function ProfileButton({ user }) {
             <li>{user.email}</li>
             <li>
               <Link exact to={'/spots/current'}>
-                <li>Manage Spots</li>
+                <li onClick={closeMenu}>Manage Spots</li>
               </Link>
               <Link exact to={'/reviews/current'}>
-                <li>Manage Reviews</li>
+                <li onClick={closeMenu}>Manage Reviews</li>
               </Link>
 
                 <button onClick={logout}>Log Out</button>

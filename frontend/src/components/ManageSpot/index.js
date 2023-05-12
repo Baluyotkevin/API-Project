@@ -5,6 +5,7 @@ import { thunkCurrUserSpot } from "../../store/spot";
 import DeleteSpot from '../DeleteSpot'
 import OpenModalButton from '../OpenModalButton'
 
+
 const DisplayCurrUserSpots = () => {
     const dispatch = useDispatch()
     const currUserSpots = useSelector(state => {

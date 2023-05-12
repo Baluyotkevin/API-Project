@@ -24,10 +24,14 @@ const SpotForm = ({ spot, formType }) => {
     const [urlFour, setUrlFour] = useState(spot?.urlFour)
     const [urlFive, setUrlFive] = useState(spot?.urlFive)
     const [errors, setErrors] = useState({})
+    const [customErr, setCustomErr] = useState({})
     
     const handleSubmit = async (e) => {
+
         e.preventDefault();
         setErrors({})
+        setCustomErr({})
+        const err = {};
         const SpotImages = [];
         spot = {
             ...spot,
@@ -75,21 +79,29 @@ const SpotForm = ({ spot, formType }) => {
 
 
         if (!url) {
-            spot.errors.previewImage = "Preview image is required"
+            // spot.errors.previewImage = "Preview image is required"
+            // spot.errors.previewImage = "Preview image is required"
+            err.previewImage = "Preview image is required"
+
         }
 
         if (urlTwo) {
             if(!urlTwo.endsWith('.jpg')) {
                 if (!urlTwo.endsWith('.jpeg')) {
                     if (!urlTwo.endsWith('.png')) {
-                        spot.errors.imageUrl = "Image URL must end in .png, .jpg or .jpeg"
+                        // spot.errors.
+                        err.imageUrl = "Image URL must end in .png, .jpg or .jpeg"
                     }
                 } 
             }
         }
-        if (!urlTwo) {
-            spot.errors.imageUrl = "Image URL must end in .png, .jpg or .jpeg"
+        // if (!urlTwo) {
+        //     spot.errors.imageUrl = "Image URL must end in .png, .jpg or .jpeg"
+        // }
+        if(err) {
+            setCustomErr(err)
         }
+        
         if(spot.errors) {
             console.log("THIS MY SPOT THO", spot)
             // spot.errors.previewImage = 'hello'
@@ -103,6 +115,8 @@ const SpotForm = ({ spot, formType }) => {
             //         spot.errors.imageUrl = "Image URL must end in .png, .jpg, or .jpeg"
             //     }
             // })
+            // console.log(spot.errors)
+            // setCustomErr(err)
             setErrors(spot.errors)
         } else {
             history.push(`/spots/${spot.id}`)
@@ -217,14 +231,14 @@ const SpotForm = ({ spot, formType }) => {
             <label>
                 <h3>Liven up your spot with photos</h3>
                 <p>Submit a link to at least one photo to publish your spot.</p>
-                <div className='errors'>{errors.previewImage}</div>
+                    <div className='errors'>{customErr.previewImage}</div>
                     <input 
                     placeholder ='Preview Image URL'
                     type='text'
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                     />
-                    <div className='errors'>{errors.imageUrl}</div>
+                    <div className='errors'>{customErr.imageUrl}</div>
                     <input 
                     placeholder ='Image URL'
                     type='text'

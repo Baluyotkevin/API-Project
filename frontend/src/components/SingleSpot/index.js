@@ -94,10 +94,14 @@ function DisplaySingleSpot() {
                 </div>
         <div className='reviews-container'>
                 <ul>
-            {Object.values(allReviews).map(review => {
+            {Object.values(allReviews).reverse().map(review => {
                 return (
                     <li>
 
+                        <h5>{!currUser ? review.User.firstName : currUser.firstName}</h5>
+                        <h5>{review.createdAt.slice(0, 10)}</h5>
+                        <p>{review.review}</p>
+                        {/* {review.userId === currUser.id ? } */}
                         {!currUser ? null : (currUser.id === review.userId ?
                             <OpenModalButton
                             buttonText='Update'
@@ -107,13 +111,9 @@ function DisplaySingleSpot() {
                         {!currUser ? null : (currUser.id === review.userId ?
                             <OpenModalButton
                             buttonText='Delete'
-                            modalComponent={<DeleteReview reviewId={review.id}/>} />
+                            modalComponent={<DeleteReview review={review}/>} />
                             : null)
                         }
-                        <h5>{!currUser ? review.User.firstName : currUser.firstName}</h5>
-                        <h5>{review.createdAt.slice(0, 10)}</h5>
-                        <p>{review.review}</p>
-                        {/* {review.userId === currUser.id ? } */}
                     </li>
                 )
             })}
