@@ -8,6 +8,7 @@ import SingleSpot from './components/SingleSpot';
 import CreateSpotForm from './components/CreateSpotForm';
 import EditSpotForm from './components/EditSpotForm';
 import DisplayCurrUserSpots from './components/ManageSpot';
+import DisplayCurrUserReviews from "./components/ManageReview";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
       <Route exact path={'/spots/current'} component={DisplayCurrUserSpots} />
       <Route exact path={'/spots/:spotId'} component={SingleSpot} />
       <Route exact path={'/spots/:spotId/edit'} component={EditSpotForm} />
+      <Route exact path={'/reviews/current'} component={DisplayCurrUserReviews}/>
         </Switch>}
     </>
   );

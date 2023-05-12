@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { thunkCurrUserSpot, thunkDeleteSpot } from "../../store/spot";
+import { thunkCurrUserSpot } from "../../store/spot";
 import DeleteSpot from '../DeleteSpot'
 import OpenModalButton from '../OpenModalButton'
 

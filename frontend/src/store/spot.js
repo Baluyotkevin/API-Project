@@ -4,11 +4,9 @@ const GET_ALL_SPOTS = 'spot/loadAllSpots';
 const GET_SINGLE_SPOT = 'spot/loadSingleSpot';
 const CREATE_SPOT = 'spot/createSpot';
 const CREATE_SPOT_IMAGES = 'spot/createSpotImages'
-const UPDATE_SPOT = 'spot/editSpot';
+const UPDATE_SPOT = 'spot/updateSpot';
 const DELETE_SPOT = 'spot/deleteSpot';
 const GET_CURR_USER_SPOT = 'spot/loadCurrUserSpot';
-
-
 // all action creators
 const loadAllSpots = (spots) => {
     return {
@@ -45,7 +43,6 @@ const createSpotImages = (image, spotId) => {
         spotId
     }
 }
-
 const editSpot = (spot) => {
     return {
         type: UPDATE_SPOT,
@@ -104,7 +101,7 @@ export const thunkCreateSpot = (spot) => async dispatch => {
             dispatch(createSpot(newSpot))
             newSpot.SpotImages = spot.SpotImages.forEach(image => {
                 dispatch(thunkCreateSpotImages(image, newSpot.id))
-            })
+                })
             return newSpot
     } catch (err) {
         const errors = await err.json();
@@ -140,9 +137,10 @@ export const thunkEditSpot = (spot) => async dispatch => {
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(spot)
         })
-        console.log("THIS IS MY RES", spot)
+
+        // console.log("THIS IS MY RES", spot)
         const updatedSpot = await res.json()
-        console.log("THIS WHAT IM LOOKIN AT THO", updatedSpot)
+        // console.log("THIS WHAT IM LOOKIN AT THO", updatedSpot)
             dispatch(editSpot(updatedSpot))
             // dispatch(thunkSingleSpot)
             return updatedSpot
@@ -180,7 +178,7 @@ const initialState = {
 // all reducers
 const allSpotsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_ALL_SPOTS:
+        case GET_ALL_SPOTS: {
             const newSpots = {};
             const spotsArray = action.spots.Spots;
             spotsArray.forEach(spot => {
@@ -190,6 +188,7 @@ const allSpotsReducer = (state = initialState, action) => {
                     ...state,
                     allSpots: newSpots
                 }
+        }
 
         case GET_CURR_USER_SPOT: {
             const newSpots = {}
