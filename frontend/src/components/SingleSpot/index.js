@@ -111,7 +111,7 @@ function DisplaySingleSpot() {
                         {!currUser ? null : (currUser.id === review.userId ?
                             <OpenModalButton
                             buttonText='Delete'
-                            modalComponent={<DeleteReview review={review}/>} />
+                            modalComponent={<DeleteReview reviewId={review.id}/>} />
                             : null)
                         }
                     </li>

@@ -36,7 +36,7 @@ module.exports = {
         price: 2
       },
       {
-        ownerId: 1,
+        ownerId: 3,
         address: 'wherever you want it to be',
         city: 'Pallet Town',
         state: 'Somewhere',
@@ -48,7 +48,7 @@ module.exports = {
         price: 999.99
       },
       {
-        ownerId: 2,
+        ownerId: 4,
         address: '23213 pasdw st.',
         city: 'Carson',
         state: 'CA',
@@ -60,7 +60,7 @@ module.exports = {
         price: 5923
       },
       {
-        ownerId: 3,
+        ownerId: 5,
         address: 'Kirbys home',
         city: 'Kirbys city',
         state: 'Kirbys state',
@@ -69,6 +69,18 @@ module.exports = {
         lng: 0.12,
         name: "Kirby's home",
         description: 'You get to see what Kirby does on a daily basis.',
+        price: 5923
+      },
+      {
+        ownerId: 3,
+        address: '20234',
+        city: 'BEST CITY',
+        state: 'BEST STATE',
+        country: 'BEST COUNTRY',
+        lat: 0.1,
+        lng: 0.12,
+        name: "My homeeee",
+        description: 'MANSION HELLO!?',
         price: 5923
       }
 
@@ -88,7 +100,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      ownerId: { [Op.in]: [1, 2, 3] }
+      ownerId: { [Op.in]: [1, 2, 3, 4, 5] }
     }, {});
     /**
      * Add commands to revert seed here.

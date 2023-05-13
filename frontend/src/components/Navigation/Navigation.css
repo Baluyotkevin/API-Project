@@ -61,7 +61,7 @@ ul.profile-dropdown {
     border: 2px solid #a06cd5;
     border-radius: 20px;
     height: 60px;
-    z-index: 1000
+    /* z-index: 1000 */
 }
 
 
