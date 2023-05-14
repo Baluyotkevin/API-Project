@@ -229,19 +229,19 @@ const allSpotsReducer = (state = initialState, action) => {
                 }
             }
         case CREATE_SPOT_IMAGES: {
-            const newSpot = { ...state.singleSpot }
-            const obj = Object.values(newSpot)
-            if (!obj[0].SpotImages instanceof Array) {
-                obj[0].SpotImages.push(action.image)
+            const spot = { ...state.singleSpot }
+            const newSpot = Object.values(spot)
+            if (!newSpot[0].SpotImages instanceof Array) {
+                newSpot[0].SpotImages.push(action.image)
             } else {
                 console.log("IF THERE IS NO ARRAY THEN I SHALL MAKE ONE")
-                obj[0].SpotImages = [action.image];
+                newSpot[0].SpotImages = [action.image];
             }
-            obj[obj.id] = obj
+            newSpot[newSpot.id] = newSpot
             console.log("I HIT THIS CREATE SPOT IMAGES CASE", newSpot)
             return {
                 ...state,
-                singleSpot: obj
+                singleSpot: newSpot
             }
         }
         case UPDATE_SPOT: {

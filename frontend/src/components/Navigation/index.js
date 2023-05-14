@@ -15,6 +15,10 @@ function Navigation({ isLoaded }){
       <li className="nav-logo"> 
         <NavLink exact to='/'><img className='airbnbLogo' src={AirbnbLogo}/></NavLink> 
       </li>
+
+         <div className='spotCreator'>
+      {sessionUser !== null ? <NavLink to='/spots/new'><li>Create a new Spot</li> </NavLink>: null}
+          </div>
       {isLoaded && (
 
         <li className='nav-profile-button'>
