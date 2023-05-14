@@ -39,6 +39,7 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    color: #ae87c5
 }
 
 div.rating-container > p {
