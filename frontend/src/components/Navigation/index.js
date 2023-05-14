@@ -16,7 +16,7 @@ function Navigation({ isLoaded }){
       </li>
 
          <div className='spotCreator'>
-      {sessionUser !== null ? <NavLink to='/spots/new'><li>Create a new Spot</li> </NavLink>: null}
+      {sessionUser !== null ? <NavLink to='/spots/new'><button>Create a new Spot</button></NavLink>: null}
           </div>
       {isLoaded && (
 

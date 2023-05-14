@@ -4,6 +4,11 @@ div.errors {
 
 .spot-button {
     width: 100px;
+    cursor: pointer;
+}
+
+.spot-button:hover {
+    opacity: 0.5;
 }
 
 .form-container {

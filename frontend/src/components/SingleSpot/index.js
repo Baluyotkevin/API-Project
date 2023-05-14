@@ -134,12 +134,12 @@ function DisplaySingleSpot() {
         <div className='reviews-container'>
 
             {!Object.values(allReviews).length ? 'Be the first to post a review!' : Object.values(allReviews).reverse().map(review => {
-                const date = review?.createdAt.slice(5, 7)
+                const date = review?.createdAt?.slice(5, 7)
                 const month = checkDate(date)
                 return (
                     <div>
                         <h5>{review?.User?.firstName}</h5>
-                        <h5>{month}, {review?.createdAt.slice(0, 4)}</h5>
+                        <h5>{month}, {review?.createdAt?.slice(0, 4)}</h5>
                         <p>{review?.review}</p>
                         <div className='spot-delete-button'>
                         {!currUser ? null : (currUser.id === review.userId ?

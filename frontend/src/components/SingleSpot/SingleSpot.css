@@ -77,12 +77,18 @@ li.allOther-images > img{
     border-radius: 5px;
 }
 
-.postReview-button > button{
-    cursor: pointer;
+.button-container > button:hover {
+    opacity: 0.5;
 }
 
-.spot-delete-button:hover > button {
+.postReview-button > button:hover {
     cursor: pointer;
+    opacity: 0.5;
+}
+
+.spot-delete-button > button:hover {
+    cursor: pointer;
+    opacity: 0.5;
 }
 
 .allOther-images > img {

@@ -19,6 +19,14 @@
     padding-left: 8px;
   }
   
+  .submit-button {
+    cursor: pointer;
+  }
+
+  .submit-button:hover {
+    opacity: 0.5;
+  }
+
 
   .review-input {
     background-color: lavender;

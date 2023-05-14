@@ -18,8 +18,10 @@
     border-radius: 5px;
 }
 
+
 .manageSpot-button:hover {
     cursor: pointer;
+    opacity: 0.5;
 }
 
 .updateBut {
@@ -27,11 +29,13 @@
     color: #6247aa;
     border: 2px solid lavender;
     border-radius: 5px;
+    margin-right: 5px;
 }
 
 
 .updateBut:hover {
     cursor: pointer;
+    color: red;
 }
 
 .manageSpot-updateDelete >button {
@@ -40,7 +44,10 @@
     gap: 5px;
     border: 2px solid lavender;
     border-radius: 5px;
+    /* gap: 2px; */
 }
-.manageSpot-updateDelete:hover > button {
+.manageSpot-updateDelete > button:hover {
     cursor: pointer;
+    color: red
 }
+

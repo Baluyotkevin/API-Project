@@ -11,10 +11,15 @@
 
 .link-modal {
     width: 55px;
+    cursor: pointer;
+}
+
+form > button:hover {
+    opacity: 0.5;
 }
 
 .link-modal:hover {
-    cursor: pointer;
+    opacity: 0.5;
 }
 
 div.modal-menu {

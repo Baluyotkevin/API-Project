@@ -17,7 +17,18 @@
     width: 50%;
     margin-left: 200px;
     align-items: center;
+    /* background-color: white; */
     /* color: black; */
+}
+
+.spotCreator a > button {
+    background: white;
+    border: none;
+    cursor: pointer;
+}
+
+.spotCreator a > button:hover {
+    opacity: 0.5;
 }
 
 .icon-container > a {
@@ -33,9 +44,22 @@
     font-size: 20px;
 }
 
-.fa-solid:hover {
+.fa-bars {
     cursor: pointer;
 }
+
+.fa-bars:hover {
+    opacity: 0.5;
+}
+
+.fa-user-ninja:hover {
+    opacity: 0.5
+}
+
+.fa-user-ninja {
+    cursor: pointer;
+}
+
 
 .fa-container {
     display: flex;
@@ -73,6 +97,14 @@ div.greetings > li {
     border-radius: 15px;
     background-color: #e0c3fc;
     font-size: 14px;
+}
+
+.hello > a:hover {
+    opacity: 0.5;
+}
+
+.navLogout:hover {
+    opacity: 0.5;
 }
 
 .profile-dropdown > li {

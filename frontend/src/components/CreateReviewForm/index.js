@@ -98,7 +98,7 @@ const ReviewForm = ({disabled, spotId}) => {
       </div>
       <div className='errors'>{errors.stars}</div>
                 <div>
-                <button type="submit" disabled={stars < 0 || rev.length < 10}>Submit Your Review</button>
+                <button className='submit-button' type="submit" disabled={stars < 0 || rev.length < 10}>Submit Your Review</button>
                 </div>
                 </form>
             </div>
