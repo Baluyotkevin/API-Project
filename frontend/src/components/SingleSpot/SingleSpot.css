@@ -3,12 +3,22 @@
     flex-direction: column;
     margin: 10px 60px;
     gap: 20px;
+    /* z-index: -1; */
 }
+
+.firstContainer {
+    z-index: -1;
+}
+/* 
+div.firstContainer-info {
+    z-index: -1;
+} */
 
 .allImages-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 5px;
+    /* z-index: -1; */
 }
 
 .spot-image-list {

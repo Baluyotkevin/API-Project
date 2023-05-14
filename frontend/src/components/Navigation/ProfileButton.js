@@ -68,7 +68,7 @@ function ProfileButton({ user }) {
               <Link exact to={'/reviews/current'}>
                 <li className='manage' onClick={closeMenu}>Manage Reviews</li>
               </Link>
-            <li>
+            <li className='navLogout-cont'>
                 <button className='navLogout' onClick={logout}>Log Out</button>
             </li>
           </div>
