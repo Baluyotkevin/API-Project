@@ -66,7 +66,6 @@ export const thunkCurrUserReviews = () => async dispatch => {
 
 export const thunkCreateReview = (review) => async dispatch => {
     let res;
-    // console.log("WHAT IS THIS ", review)
     try {
         res = await csrfFetch(`/api/spots/${review.spotId}/reviews`, {
            method: 'POST',
@@ -135,7 +134,6 @@ const allReviewsReducer = (state = initialState, action) => {
         case GET_ALL_REVIEWS_CURR_USER: {
             const newReviews = {};
             const reviewsArr = action.userId.Reviews
-            console.log("WHAT IS THIS", action)
             reviewsArr.forEach(review => {
                 newReviews[review.id] = review
             })
@@ -147,8 +145,6 @@ const allReviewsReducer = (state = initialState, action) => {
         case CREATE_REVIEW: {
             const newReview =  {};
             const review = action.review
-            console.log("THIS IS IT", review)
-            console.log("THIS IS BEFORE ", review.spot)
             newReview[review.id] = review
         
             return {
@@ -168,7 +164,6 @@ const allReviewsReducer = (state = initialState, action) => {
             }
         }
         case DELETE_REVIEW: {
-            // console.log("THIS IS CURRENTLY MY STATE", state)
             const newReview = { ...state.spot};
             const newUser= { ...state.user } 
 
@@ -179,17 +174,6 @@ const allReviewsReducer = (state = initialState, action) => {
                 user: newUser
             }
         }
-
-        // const newReview = { ...state.spot.user };
-        //     console.log("THIS IS MY STAAATE ", state)
-        //     console.log("THIS RIGHT HEREEEEEE", newReview)
-        //     delete newReview[action.reviewId]
-        //     console.log("THIUS IS WRIGHT HEREEE", newReview)
-        //     console.log("THSI MY NEW STAATE",)
-        //     return {
-        //         ...state,
-        //         spot: newReview
-        //     }
 
         default: 
         return state;

@@ -17,7 +17,6 @@ const EditReview = ({review, disabled}) => {
         e.preventDefault()
         setErrors({})
         const revObj = {
-            // ...review,
             spotId: review.spotId,
             review: rev,
             stars: stars
@@ -27,7 +26,6 @@ const EditReview = ({review, disabled}) => {
         console.log(edittedReview)
         if (edittedReview.errors) {
             setErrors(edittedReview.errors)
-            // dispatch(thunkAllReviewsSpot()
         } else {
             closeModal()
         }
@@ -53,7 +51,7 @@ const EditReview = ({review, disabled}) => {
             onMouseEnter={() => { if (!disabled) setStars(1)} }
             onMouseLeave={() => { if (!disabled) setStars(1)} }
             onClick={() => { if (!disabled) parseInt(1)} }
-            // value={stars}
+            value={1}
             >
                 <i className="fa-regular fa-star"></i>
       </div>
@@ -62,7 +60,7 @@ const EditReview = ({review, disabled}) => {
             onMouseEnter={() => { if (!disabled) setStars(2)} }
             onMouseLeave={() => { if (!disabled) setStars(2)} }
             onClick={() => { if (!disabled) parseInt(2)} }
-            // value={stars}
+            value={2}
             >
         <i className="fa-regular fa-star"></i>
                 </div>
@@ -71,7 +69,7 @@ const EditReview = ({review, disabled}) => {
             onMouseEnter={() => { if (!disabled) setStars(3)} }
             onMouseLeave={() => { if (!disabled) setStars(3)} }
             onClick={() => { if (!disabled) parseInt(3)} }
-            // value={stars}
+            value={3}
             >
         <i className="fa-regular fa-star"></i>
       </div>
@@ -80,7 +78,7 @@ const EditReview = ({review, disabled}) => {
             onMouseEnter={() => { if (!disabled) setStars(4)} }
             onMouseLeave={() => { if (!disabled) setStars(stars)} }
             onClick={() => { if (!disabled) parseInt(4)} }
-            // value={stars}
+            value={4}
             >
         <i className="fa-regular fa-star"></i>
       </div>
@@ -89,7 +87,7 @@ const EditReview = ({review, disabled}) => {
             onMouseEnter={() => { if (!disabled) setStars(5)} }
             onMouseLeave={() => { if (!disabled) setStars(stars)} }
             onClick={() => { if (!disabled) parseInt(5)} }
-            // value={stars}
+            value={5}
             >
         <i className="fa-regular fa-star"></i>
       </div> 

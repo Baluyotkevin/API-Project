@@ -1,0 +1,15 @@
+.spotDeleteYas {
+    color: red
+}
+
+.spotDeleteYas:hover {
+    cursor: pointer;
+}
+
+.spotDeleteKeep:hover {
+    cursor: pointer;
+}
+
+.spotDeleteKeep {
+    color: darkgrey;
+}

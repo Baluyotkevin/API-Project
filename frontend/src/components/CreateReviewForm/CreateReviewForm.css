@@ -14,6 +14,10 @@
   form {
     margin-left: 5px;
   }
+
+  .starText {
+    padding-left: 8px;
+  }
   
 
   .review-input {

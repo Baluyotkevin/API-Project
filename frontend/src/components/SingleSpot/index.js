@@ -22,21 +22,40 @@ function DisplaySingleSpot() {
     const allReviews = useSelector(state => {
         return state.reviews.spot
     })
-    // const currUserReview = useSelector(state => {
-    //     console.log("this my state", state)
-    //     return state.reviews.user
-    // })
+
+    const dateObj = {
+        '01': 'January',
+        '02': 'February',
+        '03': 'March',
+        '04': 'April',
+        '05': 'May',
+        '06': 'June',
+        '07': 'July',
+        '08': 'August',
+        '09': 'September',
+        '10': 'October',
+        '11': 'November',
+        '12': 'December'
+    }
+
+    const checkDate = (date) => {
+        for (let month of Object.keys(dateObj)) {
+          if (date === month) {
+            console.log(date, month)
+            return dateObj[month]
+          }
+        }
+      }
+
     const checkReviews = [];
     Object.values(allReviews).forEach(rev=> checkReviews.push(rev.userId))
-    console.log("WHAT IS THISSSSS", singleSpot)
 
     useEffect(() => {
         dispatch(thunkSingleSpot(spotId))
         dispatch(thunkAllReviewsSpot(spotId))
-        
-        // dispatch(thunkCurrUserReviews())
-        // dispatch(thunkAllSpots())
+
     }, [dispatch, spotId])
+
 
     if(!singleSpot || !allReviews) return <p>PLEASE WAIT I"M LOADING</p>
 
@@ -71,21 +90,35 @@ function DisplaySingleSpot() {
             <div className='price-container'>
                 <div className='buttonPriceContainer'>
                     <div className='reviewPrice-container'>
-                        <p className='price'>${singleSpot.price} per night</p>
-                        <p className='star'><i class="fa-solid fa-star"></i>{singleSpot.avgStarRating}</p>
-                        <p className='numReview'>{singleSpot.numReviews} reviews</p>
+                        <p className='price'>${singleSpot.price} night</p>
+                        {!singleSpot.numReviews ? 
+                            <p className='star'><i class="fa-solid fa-star"></i>New</p>
+                            :
+                            (
+                                <div className='singleSpot-reviewCount'>
+                                    <p className='star'><i class="fa-solid fa-star"></i>{singleSpot.avgStarRating ? singleSpot.avgStarRating.toFixed(2) : 'New'}</p>
+                                    <p className='numReview'>{singleSpot.numReviews} {singleSpot.numReviews === 1 ? 'Review' : 'Reviews'}</p>
+                                </div>
+                            )
+                        }
                     </div>
                         <div className='button-container'>
-                            <button onClick={() => alert('Feature coming soon...')}>Reserve</button>
+                            <button onClick={() => alert('Feature coming soon.')}>Reserve</button>
                         </div>
                 </div>
             </div>
         </div>
+            {!singleSpot.avgStarRating ?
         <div className='star-container'>
-            <h3><i className="fa-solid fa-star"></i>{singleSpot.avgStarRating}</h3>
-            <p className='dot'>.</p>
-            <h3>{singleSpot.numReviews} reviews</h3>
+            <h3><i className="fa-solid fa-star"></i>{singleSpot.avgStarRating ? singleSpot.avgStarRating.toFixed(2) : 'New'}</h3>
         </div>
+            :
+            <div className='singleSpot-reviewCount'>
+                <div><i className="fa-solid fa-star"></i></div>
+                <p className='dot'>.</p>
+            <h3>{singleSpot.numReviews} {singleSpot.numReviews === 1 ? 'review' : 'reviews'}</h3>
+            </div>
+        }
                 <div className='postReview-button'>
                     {currUser ? ((checkReviews.includes(currUser.id) || currUser.id === singleSpot.ownerId) ? 
                     null
@@ -100,14 +133,14 @@ function DisplaySingleSpot() {
                 </div>
         <div className='reviews-container'>
 
-            {Object.values(allReviews).reverse().map(review => {
-                // {dispatch(thunkAllReviewsSpot(review.spotId))}
+            {!Object.values(allReviews).length ? 'Be the first to post a review!' : Object.values(allReviews).reverse().map(review => {
+                const date = review?.createdAt.slice(5, 7)
+                const month = checkDate(date)
                 return (
                     <div>
                         <h5>{review?.User?.firstName}</h5>
-                        <h5>{review?.createdAt?.slice(0, 10)}</h5>
+                        <h5>{month}, {review?.createdAt.slice(0, 4)}</h5>
                         <p>{review?.review}</p>
-                        {/* {review.userId === currUser.id ? } */}
                         <div className='spot-delete-button'>
                         {!currUser ? null : (currUser.id === review.userId ?
                             <OpenModalButton

@@ -21,7 +21,7 @@ module.exports = {
         lng: 33.3,
         name: 'Hobbit-house',
         description: 'One and only hobbit house to stay at!',
-        price: 99999.99
+        price: 99999
       },
       {
         ownerId: 2,
@@ -38,14 +38,14 @@ module.exports = {
       {
         ownerId: 3,
         address: 'wherever you want it to be',
-        city: 'Pallet Town',
+        city: 'Gotham maybe',
         state: 'Somewhere',
-        country: 'Kanto',
+        country: 'Somewhere',
         lat: 23.2,
         lng: 33.3,
-        name: "Ash Ketchum's house",
-        description: "You not only get to stay in Ash Ketchum's house, but you also get to hang out with Pikachu",
-        price: 999.99
+        name: "Jokers Funhouse",
+        description: "Come and stay at the Joker Funhouse to have some fun... hehe...",
+        price: 999
       },
       {
         ownerId: 4,

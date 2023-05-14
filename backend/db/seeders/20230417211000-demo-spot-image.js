@@ -66,12 +66,12 @@ module.exports = {
       },
       {
         spotId: 5,
-        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1105228012141686865/ashketchums.jpeg',
+        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1106741278504402994/kirbyhouse.png',
         preview: true
       },
       {
         spotId: 5,
-        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1106741278504402994/kirbyhouse.png',
+        url: 'https://cdn.discordapp.com/attachments/1096834476564295755/1106731049121234944/ebbe4961e44615c10ddc23227eb5c01d.png',
         preview: false
       },
       {

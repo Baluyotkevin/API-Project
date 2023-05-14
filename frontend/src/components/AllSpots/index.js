@@ -23,11 +23,10 @@ function DisplayAllSpots() {
         <div className='allSpots-container'>
         {Object.values(allSpots).map(oneSpot => {
             return (
+                        <Link exact to={`/spots/${oneSpot.id}`}>
                 <div key={oneSpot.id} className='oneSpot-container'>
                     <div className="preview-image" title={oneSpot.name}>
-                        <Link exact to={`/spots/${oneSpot.id}`}>
                         <img src={oneSpot.previewImage} />
-                        </Link>
                     </div>
                     <div className='spotDetails-container'>
                         <div className='info-container'>
@@ -35,10 +34,11 @@ function DisplayAllSpots() {
                             <p>$ {oneSpot.price} night</p>
                         </div>
                         <div className='rating-container'>
-                            <p>{oneSpot.avgRating}</p>
+                            <p className='allSpotRate'><i class="fa-solid fa-star"></i>{oneSpot.avgRating && oneSpot.avgRating !== 'New' ? oneSpot.avgRating.toFixed(2) : 'New'}</p>
                         </div>
                     </div>
                 </div>
+                    </Link>
             )
         })}
         </div>

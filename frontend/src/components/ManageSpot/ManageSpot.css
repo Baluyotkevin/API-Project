@@ -1,8 +1,14 @@
 .manageSpot-header {
-    margin-left: 50px;
+    margin-left: 30px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding-bottom: 20px;
+    z-index: -1;
+}
+
+.manageSpotTop {
+    z-index: -1;
 }
 
 .manageSpot-button {

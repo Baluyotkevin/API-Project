@@ -36,7 +36,8 @@ const ReviewForm = ({disabled, spotId}) => {
     return (
             <div>
                 <form onSubmit={handleSubmit}>
-                <h1>How was your stay?</h1>
+                    <h1>How was your stay?</h1>
+                {errors.message}
                 <textarea 
                 className='review-input'
                 placeholder='Leave your review here...'
@@ -93,6 +94,7 @@ const ReviewForm = ({disabled, spotId}) => {
             >
         <i className="fa-regular fa-star"></i>
       </div> 
+      <h4 className='starText'>Stars</h4>
       </div>
       <div className='errors'>{errors.stars}</div>
                 <div>

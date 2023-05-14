@@ -104,19 +104,6 @@ const SpotForm = ({ spot, formType }) => {
         
         if(spot.errors) {
             console.log("THIS MY SPOT THO", spot)
-            // spot.errors.previewImage = 'hello'
-            // if (!spot.spotImages.length) {
-            //     console.log('hellllooo')
-            //     spot.errors.previewImage = "Preview Image is required"
-            // }
-            // console.log("THIS SAFTER", spot.errors)
-            // spot.spotImages.forEach(spot => {
-            //     if (spot.endsWith('.jpg') || spot.endsWith('png' || spot.endsWith('.jpeg'))) {
-            //         spot.errors.imageUrl = "Image URL must end in .png, .jpg, or .jpeg"
-            //     }
-            // })
-            // console.log(spot.errors)
-            // setCustomErr(err)
             setErrors(spot.errors)
         } else {
             history.push(`/spots/${spot.id}`)
@@ -131,7 +118,7 @@ const SpotForm = ({ spot, formType }) => {
             
             <h2>{formType}</h2>
 
-            <h3>Wheres your place located?</h3>
+            <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
             <div className='errors'>{errors.country}</div>
                 <label>Country</label>
@@ -196,7 +183,7 @@ const SpotForm = ({ spot, formType }) => {
                     <p>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
             </label>
                 <textarea
-                placeholder ='Description'
+                placeholder ='Please write at least 30 characters'
                 type='text'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}

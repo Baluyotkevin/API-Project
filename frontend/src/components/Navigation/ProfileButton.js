@@ -45,9 +45,6 @@ function ProfileButton({ user }) {
 
   return (
     <>
-    {/* <div className='spotCreator'>
-      {user !== null ? <Link to='/spots/new'><li>Create a new Spot</li> </Link>: null}
-    </div> */}
       <div className="icon-container">
       <div className='fa-container'>
         <i className="fa-solid fa-bars" onClick={openMenu}></i>
@@ -58,10 +55,10 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <div className='hello'>
-            {/* <li>Hello {user.username}</li> */}
+            <div className='greetings'>
             <li>Hello, {user.firstName}</li>
-            {/* {user.lastName} */}
             <li>{user.email}</li>
+            </div>
               <Link exact to={'/spots/current'}>
                 <li onClick={closeMenu}>Manage Spots</li>
               </Link>

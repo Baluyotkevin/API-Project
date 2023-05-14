@@ -55,7 +55,19 @@ module.exports = {
       {
         spotId: 3,
         userId: 4,
-        review: 'WOW IT WAS A PLEASURE BEING IN THIS HOSUE I LO',
+        review: 'WOW IT WAS A PLEASURE BEING IN THIS HOSUE I LOVE OH MY GOOODNESS WOOW I JUST CANT NOT EVEN IMAGINE STYAING ANYWHERE ELSE I HAD THE BEST TIME EVEEEEEEEEAR',
+        stars: 5
+      },
+      {
+       spotId: 4,
+       userId: 2,
+       review: "Thank for your review, were so glad to hear that you enjoyed your stay and found our staff helpful. Its always great when we can help guests make the most of their time with us whether it be recommending a restaurant or showing them how to get around town!know that you appreciated her assistance and she will be thrilled.",
+       stars: 4
+      },
+      {
+        spotId: 2,
+        userId: 4,
+        review: "Wonderful place to stay. I dont normally stay in hostels but this was perfect  the beds are comfortable, and the rooms are quiet despite the fact that if you want to, you can spend time outside with other travelers and the staff  who, by the way, were exceptional. I had a great time meeting everyone and socializing yet when I wanted to, I could get a quiet nights sleep.",
         stars: 5
       }
     ], {});

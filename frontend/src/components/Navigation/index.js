@@ -10,7 +10,6 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    // <div className="nav-container">
     <ul className='nav-list'>
       <li className="nav-logo"> 
         <NavLink exact to='/'><img className='airbnbLogo' src={AirbnbLogo}/></NavLink> 
@@ -28,8 +27,6 @@ function Navigation({ isLoaded }){
       )}
 
     </ul>
-
-    // </div>
   );
 }
 

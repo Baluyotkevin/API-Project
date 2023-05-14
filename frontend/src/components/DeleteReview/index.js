@@ -9,14 +9,6 @@ const DeleteReview = ({reviewId}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
-    // const spotId = useSelector(state => {
-    //     console.log("THIS IS MY STATE", state)
-    //     return Object.values(state.reviews.spot)
-    // })
-
-    // useEffect(() => {
-        
-    // })
     
     const handleDelete = (e) => {
         // e.preventDefault()
@@ -31,8 +23,8 @@ const DeleteReview = ({reviewId}) => {
         <>
         <h1>Confirm Delete</h1>
             <p>Are you sure you want to delete?</p>
-        <button onClick={handleDelete}>Yes</button>
-        <button onClick={closeModal}>No</button>
+        <button className='spotDeleteYas' onClick={handleDelete}>Yes (Delete Reiew)</button>
+        <button className='spotDeleteKeep'onClick={closeModal}>No (Keep Review)</button>
         </>
     )
 }

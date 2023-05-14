@@ -5,11 +5,20 @@
     margin: 0;
     list-style: none;
     text-decoration: none;
-    /* color: #ada7ff; */
 }
 
 p {
     font-size: 15px;
+}
+
+body {
+    width: 1024px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#root {
+    width: 100%;
 }
 
 

@@ -18,7 +18,7 @@ const DisplayCurrUserSpots = () => {
 
 
     return (
-        <div>
+        <div className='manageSpotTop'>
             <div className='manageSpot-header'>
                 <h1>Manage Spots</h1>
                     <Link exact to='/spots/new'>
@@ -27,6 +27,7 @@ const DisplayCurrUserSpots = () => {
             </div>
             <ul className='allSpots-container'>
                 {Object.values(currUserSpots).map(spot => {
+                    console.log(spot)
                     return (
                         <div key={spot.id} className='oneSpot-container'>
                             <div className="preview-image">
