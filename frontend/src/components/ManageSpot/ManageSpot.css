@@ -1,0 +1,40 @@
+.manageSpot-header {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.manageSpot-button {
+    background-color: lavender;
+    color: #6247aa;
+    border: 2px solid lavender;
+    border-radius: 5px;
+}
+
+.manageSpot-button:hover {
+    cursor: pointer;
+}
+
+.updateBut {
+    background-color: lavender;
+    color: #6247aa;
+    border: 2px solid lavender;
+    border-radius: 5px;
+}
+
+
+.updateBut:hover {
+    cursor: pointer;
+}
+
+.manageSpot-updateDelete >button {
+    background-color: lavender;
+    color: #6247aa;
+    gap: 5px;
+    border: 2px solid lavender;
+    border-radius: 5px;
+}
+.manageSpot-updateDelete:hover > button {
+    cursor: pointer;
+}

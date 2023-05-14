@@ -102,7 +102,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
         spot.avgRating = total / length;
         if(!spot.avgRating) {
-            spot.avgRating = 'Has not been rated yet ;('
+            spot.avgRating = 'New'
         };
         result.Spots.push(spot);
     };
@@ -170,7 +170,8 @@ router.get('/' , async (req, res) => {
     for (let spot of allSpots) {
         const allImages = await SpotImage.findAll({
             where: {
-                spotId: spot.id
+                spotId: spot.id,
+                preview: true
             }
         });
         spot = spot.toJSON()
@@ -186,7 +187,7 @@ router.get('/' , async (req, res) => {
 
         spot.avgRating = total / length
         if(!spot.avgRating) {
-            spot.avgRating = 'Has not been rated yet ;('
+            spot.avgRating = 'New'
         };
 
         for (let image of allImages) {
@@ -248,13 +249,13 @@ router.get('/:spotId', async (req, res) => {
         oneSpot.SpotImages = imagesArray;
         oneSpot.Owner = oneUser;
         if(!oneSpot.avgStarRating) {
-            oneSpot.avgStarRating = 'Has not been rated yet ;('
+            oneSpot.avgStarRating = 'New'
         };
         if(!imagesArray.length) {
             oneSpot.SpotImages = 'No images available ;('
         };
         if(!oneSpot.numReviews) {
-            oneSpot.numReviews = 'No reviews ;('
+            oneSpot.numReviews = '0'
         };
     
     res.status(200).json(oneSpot);

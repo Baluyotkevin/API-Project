@@ -46,12 +46,12 @@ function ProfileButton({ user }) {
   return (
     <>
       <div className="icon-container">
-    <div className='nav-button'>
-      <i className="fa-solid fa-bars" onClick={openMenu}></i>
-    </div>
-      <button className='menu-button' onClick={openMenu}>
-      <i className="fa-solid fa-user-ninja"></i>
-      </button>
+      {user !== null ? <Link to='/spots/new'><li>Create a new Spot</li> </Link>: null}
+      <div className='fa-container'>
+        <i className="fa-solid fa-bars" onClick={openMenu}></i>
+        <i className="fa-solid fa-user-ninja" onClick={openMenu}></i>
+      </div>
+
     </div>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
@@ -60,17 +60,14 @@ function ProfileButton({ user }) {
             <li>Hello, {user.firstName}</li>
             {/* {user.lastName} */}
             <li>{user.email}</li>
-            <li>
               <Link exact to={'/spots/current'}>
                 <li onClick={closeMenu}>Manage Spots</li>
               </Link>
               <Link exact to={'/reviews/current'}>
-                <li onClick={closeMenu}>Manage Reviews</li>
+                <li className='manage' onClick={closeMenu}>Manage Reviews</li>
               </Link>
-
+            <li>
                 <button onClick={logout}>Log Out</button>
-
-
             </li>
           </>
         ) : (
@@ -78,6 +75,7 @@ function ProfileButton({ user }) {
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
+              
               modalComponent={<LoginFormModal />}
             />
 

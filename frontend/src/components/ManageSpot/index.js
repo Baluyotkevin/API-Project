@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { thunkCurrUserSpot } from "../../store/spot";
 import DeleteSpot from '../DeleteSpot'
 import OpenModalButton from '../OpenModalButton'
-
+import './ManageSpot.css'
 
 const DisplayCurrUserSpots = () => {
     const dispatch = useDispatch()
@@ -19,10 +19,10 @@ const DisplayCurrUserSpots = () => {
 
     return (
         <div>
-            <div>
+            <div className='manageSpot-header'>
                 <h1>Manage Spots</h1>
                     <Link exact to='/spots/new'>
-                        <button>Create a New Spot</button>
+                        <button className='manageSpot-button'>Create a New Spot</button>
                     </Link>
             </div>
             <ul className='allSpots-container'>
@@ -42,15 +42,15 @@ const DisplayCurrUserSpots = () => {
                                     <div className='rating-container'>
                                     <p>{spot.avgRating}</p>
                                 </div>
-                            </div>
-                            <div>
+                            <div className='manageSpot-updateDelete'> 
                                 <Link exact to={`/spots/${spot.id}/edit`}>
-                                    <button>Update</button>
+                                    <button className='updateBut'>Update</button>
                                 </Link>
                                         <OpenModalButton 
                                         buttonText='Delete'
                                         modalComponent={<DeleteSpot spotId={spot.id} />}
                                         />
+                            </div>
                             </div>
                         
                         </div>

@@ -106,10 +106,9 @@ export const thunkCreateSpot = (spot) => async dispatch => {
             dispatch(createSpot(newSpot))
             console.log("THIS MY NEW SPOT THO", newSpot)
             newSpot.SpotImages = spot.SpotImages.forEach(image => {
-                console.log("THIS ISSS MY SPOOOOOT", spot)
                 dispatch(thunkCreateSpotImages(image, newSpot.id))
                 })
-                console.log("MY NEW SPOTIMAGES ARRAY ", newSpot)
+            
             return newSpot
     } catch (err) {
         const errors = await err.json();
@@ -211,12 +210,9 @@ const allSpotsReducer = (state = initialState, action) => {
                 allSpots: newSpots
             }
         }
-        case GET_SINGLE_SPOT:
+        case GET_SINGLE_SPOT: 
                 const newSpot = {}
-                console.log('THSI IS WHAT IM LOOKING AT AS OF NOW', action)
-                console.log("THSI AS WELLLL", state)
                 const singleSpot = action.spot;
-                console.log("THIS MY SINGLE SPOOOOT", singleSpot)
                 newSpot[singleSpot.id] = singleSpot
                 return { 
                     ...state,
@@ -234,23 +230,27 @@ const allSpotsReducer = (state = initialState, action) => {
             }
         case CREATE_SPOT_IMAGES: {
             const newSpot = { ...state.singleSpot }
-            console.log('THIS IS MY STATE IF THERE IT IS AN INSTANCE OF AN ARRAY I SHALL PUSH', newSpot)
-            if (newSpot.SpotImages instanceof Array) {
-                newSpot.SpotImages.push(action.image)
+            const obj = Object.values(newSpot)
+            if (!obj[0].SpotImages instanceof Array) {
+                obj[0].SpotImages.push(action.image)
             } else {
                 console.log("IF THERE IS NO ARRAY THEN I SHALL MAKE ONE")
-                newSpot.SpotImages = [action.image];
+                obj[0].SpotImages = [action.image];
             }
+            obj[obj.id] = obj
             console.log("I HIT THIS CREATE SPOT IMAGES CASE", newSpot)
             return {
                 ...state,
-                singleSpot: newSpot
+                singleSpot: obj
             }
         }
         case UPDATE_SPOT: {
-                const newSpot = {};
+                const newSpot = { ...state };
                 const updatedSpot = action.spot
+                console.log("THIS ISM Y STAAATE YAAAAS", state)
+                console.log('THIS IS MY STATE BEFORE H', updatedSpot)
                 newSpot[updatedSpot.id] = updatedSpot
+                console.log("THIS IS AFTER ", newSpot)
                 return {
                     ...state,
                     singleSpot: newSpot

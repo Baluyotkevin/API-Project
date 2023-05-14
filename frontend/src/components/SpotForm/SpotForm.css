@@ -1,4 +1,4 @@
-form > div.errors {
+div.errors {
     color: red;
 }
 
@@ -9,4 +9,36 @@ form > div.errors {
 .form-container {
     display: flex;
     justify-content: center;
+    /* margin-left: 100px */
 }
+
+div.insideForm-container {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.image-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.spot-button {
+    margin-top: 10px;
+    height: 35px;
+    border-radius: 5px;
+    border: 2px solid #d2b7e5;
+    background-color: lavender;
+    color: #6247aa;
+}
+
+.spot-button:hover {
+    cursor: pointer;
+}
+
+
+/* .form-container > form {
+    display: flex;
+    justify-content: center;
+} */

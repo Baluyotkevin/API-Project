@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkDeleteReview } from '../../store/review';
 import { useModal } from "../../context/Modal";
+import { thunkSingleSpot } from '../../store/spot';
 
 const DeleteReview = ({reviewId}) => {
     const dispatch = useDispatch();
@@ -12,11 +13,16 @@ const DeleteReview = ({reviewId}) => {
     //     console.log("THIS IS MY STATE", state)
     //     return Object.values(state.reviews.spot)
     // })
+
+    // useEffect(() => {
+        
+    // })
     
     const handleDelete = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         // history.push(`/spots/${review.spotId}`)
-        dispatch(thunkDeleteReview(reviewId))
+        dispatch(thunkDeleteReview(reviewId.id))
+        dispatch(thunkSingleSpot(reviewId.spotId))
         .then(closeModal)
     }
 

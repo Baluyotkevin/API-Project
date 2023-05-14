@@ -74,6 +74,7 @@ export const thunkCreateReview = (review) => async dispatch => {
            body: JSON.stringify(review)
        })
        const newReview = await res.json()
+    //    dispatch(loadSpotReviews(newReview.spotId))
        dispatch(createReviews(newReview))
        return newReview
     } catch (err) {
@@ -134,6 +135,7 @@ const allReviewsReducer = (state = initialState, action) => {
         case GET_ALL_REVIEWS_CURR_USER: {
             const newReviews = {};
             const reviewsArr = action.userId.Reviews
+            console.log("WHAT IS THIS", action)
             reviewsArr.forEach(review => {
                 newReviews[review.id] = review
             })
@@ -143,14 +145,15 @@ const allReviewsReducer = (state = initialState, action) => {
             }
         }
         case CREATE_REVIEW: {
-            const newReview = {};
+            const newReview =  {};
             const review = action.review
+            console.log("THIS IS IT", review)
+            console.log("THIS IS BEFORE ", review.spot)
             newReview[review.id] = review
-            console.log("THSI WHAT IM LOOKIN AT THO", action)
-            console.log("WHAT IS MY STATE THO", state)
+        
             return {
                 ...state,
-                spot: { ...state.spot, ...newReview}
+                spot: { ...state.spot, newReview }
             }
         }
         case UPDATE_REVIEW: {
@@ -165,7 +168,7 @@ const allReviewsReducer = (state = initialState, action) => {
             }
         }
         case DELETE_REVIEW: {
-            console.log("THIS IS CURRENTLY MY STATE", state)
+            // console.log("THIS IS CURRENTLY MY STATE", state)
             const newReview = { ...state.spot};
             const newUser= { ...state.user } 
 

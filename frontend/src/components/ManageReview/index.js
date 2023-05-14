@@ -37,7 +37,7 @@ const DisplayCurrUserReviews = () => {
                                 />
                                 <OpenModalButton
                                 buttonText='Delete'
-                                modalComponent={<DeleteReview reviewId={review.id} />}
+                                modalComponent={<DeleteReview reviewId={review} />}
                                  />
                             </div>
                         </div>

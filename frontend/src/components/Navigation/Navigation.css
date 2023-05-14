@@ -2,7 +2,97 @@
     display: none
 }
 
+.airbnbLogo {
+    width: 150px;
+}
 
+.icon-container > a {
+    display: flex;
+    align-items: center;
+    color: #ada7ff
+}
+
+.fa-solid {
+    font-size: 20px;
+}
+
+.fa-solid:hover {
+    cursor: pointer;
+}
+
+.fa-container {
+    display: flex;
+    gap: 10px;
+    border: 2px solid #ffd6ff;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.profile-dropdown {
+    width: 140px;
+    margin-left: 50px;
+    margin-right: 25px;
+    padding-right: 20px;
+    border: 2px solid #ffd6ff;
+    border-radius: 15px;
+    z-index: 1000;
+    background-color: #e0c3fc;
+
+}
+
+.profile-dropdown > li {
+    padding: 3px;
+    margin-left: 10px;
+}
+
+.profile-dropdown a > li {
+    padding-top: 5px;
+    margin: 0px 4px;
+    border-top: 2px solid #ffd6ff;
+    padding-left: 5px;
+    color: #ada7ff
+}
+
+.profile-dropdown li > button {
+    border: 2px solid #ffd6ff;
+    border-radius: 15px;
+    background: #bbd0ff;
+    padding: 4px;
+    margin-left: 19.2px;
+    color: #ada7ff
+    /* z-index: 1000; */
+}
+
+.nav-profile-button {
+    /* z-index: 1000; */
+    z-index: 1
+}
+
+
+.icon-container {
+    display: flex;
+    gap: 10px;
+    padding: 2px;
+    margin-top: 20px;
+    margin-right: 35px;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: center; */
+    height: 100px;
+    border-bottom: 2px solid gray;
+    z-index: 1;
+    color: #ada7ff;
+    margin: 20px;
+};
+
+
+
+
+/* 
 .nav-list {
     display: flex;
     justify-content: space-between;
@@ -61,61 +151,4 @@ ul.profile-dropdown {
     border: 2px solid #a06cd5;
     border-radius: 20px;
     height: 60px;
-    /* z-index: 1000 */
-}
-
-
-/* 
-.nav-container { */
-    /* display: flex; */
-    /* width: 100%; */
-    /* height: 100%; */
-    /* border-bottom: 2px solid gray;
-    padding: 0px; */
-    /* padding-bottom: 20px; */
-/* }
-
-.nav-list { */
-    /* display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    z-index: 10; */
-/* }
-
-.nav-list li { */
-    /* list-style: none;
-    width: 50%; */
-/* }
-
-.nav-logo a {
-    text-decoration: none; */
-    /* display: flex; */
-/* }
-
-.nav-profile-button {
-    padding: 20px;
-    position: absolute; */
-    /* z-index: 1; */
-/* }
-
-.nav-profile-button button {
-    background-color: white;
-    border: none;
-    border-radius: 100px;
-    width: 40px;
-    height: 40px; 
-} */
-
-/* div.nav-button {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-ul.profile-dropdown {
-    width: 100px;
-    margin-left: auto;
-    border: 3px solid #a06cd5;
-    border-radius: 20px;
-    z-index: 5;
 } */

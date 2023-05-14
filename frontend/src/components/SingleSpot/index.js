@@ -2,8 +2,8 @@ import React from "react";
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
-import { thunkSingleSpot } from '../../store/spot';
-import { thunkAllReviewsSpot } from '../../store/review';
+import { thunkAllSpots, thunkSingleSpot } from '../../store/spot';
+import { thunkAllReviewsSpot, thunkCurrUserReviews, thunkDeleteReview } from '../../store/review';
 import EditReview from "../EditReview";
 import DeleteReview from "../DeleteReview";
 import OpenModalButton from "../OpenModalButton";
@@ -19,25 +19,26 @@ function DisplaySingleSpot() {
     const singleSpot = useSelector(state=> {
         return state.spots.singleSpot[spotId]
     })
-    console.log("THIS MYT SINGLEE SPOOOOT", singleSpot)
     const allReviews = useSelector(state => {
-        console.log("THIS MY STATE1", state)
         return state.reviews.spot
     })
-
-    // console.log()
+    // const currUserReview = useSelector(state => {
+    //     console.log("this my state", state)
+    //     return state.reviews.user
+    // })
     const checkReviews = [];
     Object.values(allReviews).forEach(rev=> checkReviews.push(rev.userId))
-    // console.log("THIS WHAT IM LOOKIN AT THOUGH", allReviews)
-
-    // console.log(" ILOOK AT THIS AFTER", checkReviews )
+    console.log("WHAT IS THISSSSS", singleSpot)
 
     useEffect(() => {
         dispatch(thunkSingleSpot(spotId))
         dispatch(thunkAllReviewsSpot(spotId))
+        
+        // dispatch(thunkCurrUserReviews())
+        // dispatch(thunkAllSpots())
     }, [dispatch, spotId])
 
-    if(!singleSpot || !allReviews || !singleSpot.SpotImages) return <p>PLEASE WAIT I"M LOADING</p>
+    if(!singleSpot || !allReviews) return <p>PLEASE WAIT I"M LOADING</p>
 
     
     return (
@@ -47,8 +48,11 @@ function DisplaySingleSpot() {
                     <h1>{singleSpot.name}</h1>
                     <p>{singleSpot.city}, {singleSpot.state}, {singleSpot.country}</p>
                 </div>
-                    <li className='main-image'><img src={singleSpot.SpotImages[0].url}/></li>
-                <div className='firstContainer-image'>
+                    <div className='allImages-container'>
+                    <div className='main-image'>
+                        <img src={singleSpot?.SpotImages?.[0].url}/>
+                    </div>
+
             <ul className='spot-image-list'>
                 {Array.isArray(singleSpot.SpotImages) && singleSpot.SpotImages.slice(1).map(spotImage => {
                     return (
@@ -57,10 +61,11 @@ function DisplaySingleSpot() {
                  })}
             </ul>
                 </div>
-            </div>
+
+                    </div>
         <div className='div-p-container'>
             <div className='owner-descrip-container'>
-                <h2>Hosted By {singleSpot.Owner.firstName} {singleSpot.Owner.lastName}</h2>
+                <h2>Hosted By {singleSpot?.Owner?.firstName} {singleSpot.Owner?.lastName}</h2>
                 <p>{singleSpot.description}</p>
             </div>
             <div className='price-container'>
@@ -78,9 +83,10 @@ function DisplaySingleSpot() {
         </div>
         <div className='star-container'>
             <h3><i className="fa-solid fa-star"></i>{singleSpot.avgStarRating}</h3>
+            <p className='dot'>.</p>
             <h3>{singleSpot.numReviews} reviews</h3>
         </div>
-                <div>
+                <div className='postReview-button'>
                     {currUser ? ((checkReviews.includes(currUser.id) || currUser.id === singleSpot.ownerId) ? 
                     null
                      :
@@ -93,31 +99,34 @@ function DisplaySingleSpot() {
                   />) : <p>Need to be logged in to post a review!</p> }
                 </div>
         <div className='reviews-container'>
-                <ul>
-            {Object.values(allReviews).reverse().map(review => {
-                return (
-                    <li>
 
-                        <h5>{!currUser ? review.User.firstName : currUser.firstName}</h5>
-                        <h5>{review.createdAt.slice(0, 10)}</h5>
-                        <p>{review.review}</p>
+            {Object.values(allReviews).reverse().map(review => {
+                // {dispatch(thunkAllReviewsSpot(review.spotId))}
+                return (
+                    <div>
+                        <h5>{review?.User?.firstName}</h5>
+                        <h5>{review?.createdAt?.slice(0, 10)}</h5>
+                        <p>{review?.review}</p>
                         {/* {review.userId === currUser.id ? } */}
+                        <div className='spot-delete-button'>
                         {!currUser ? null : (currUser.id === review.userId ?
                             <OpenModalButton
                             buttonText='Update'
-                            modalComponent={<EditReview review={review}/>}
+                            modalComponent={<EditReview disabled={false} review={review}/>}
                             /> : null)
+                            
                         }
                         {!currUser ? null : (currUser.id === review.userId ?
                             <OpenModalButton
                             buttonText='Delete'
-                            modalComponent={<DeleteReview reviewId={review.id}/>} />
-                            : null)
+                            modalComponent={<DeleteReview reviewId={review}/>} />
+                            : null
+                            )
                         }
-                    </li>
+                            </div>
+                    </div>
                 )
             })}
-            </ul>
         </div>
 
         </div>

@@ -1,9 +1,16 @@
 #modal-content {
-    width: 50rem;
+    width: 20rem;
     height: 20rem;
     border: 3px solid lavender;
     border-radius: 20px;
     box-shadow: 5px 5px 5px lavender;
+    /* display: flex;
+    flex-direction: column; */
+    /* justify-content: center; */
+}
+
+.link-modal {
+    width: 55px;
 }
 
 .link-modal:hover {
@@ -11,25 +18,28 @@
 }
 
 div.modal-menu {
-    display: flex;
+    /* display: flex; */
     z-index: 6;
 }
 
 #modal-content h1 {
+    /* display: flex; */
     color: #c19ee0;
 }
 
 #modal-content button {
     width: 100px;
-    height: 25px;
+    height: 35px;
+    border-radius: 20px;
     background-color: white;
     border: 1px solid #a06cd5;
     box-shadow: 5px 5px 5px #a06cd5;
-    color: #a06cd5;
+    /* color: #a06cd5; */
 }
 
 form {
     display: flex;
+    /* justify-items: center; */
     flex-direction: column;
     gap: 8px;
     color: #dec9e9;
@@ -41,4 +51,7 @@ input {
     width: 150px;
     height: 30px;
 }
+
+
+
 

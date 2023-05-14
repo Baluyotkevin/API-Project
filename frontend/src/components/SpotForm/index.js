@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { thunkCreateSpot, thunkEditSpot } from '../../store/spot'
+import { thunkCreateSpot, thunkEditSpot, thunkSingleSpot } from '../../store/spot'
 
 import './SpotForm.css'
 
@@ -67,16 +67,16 @@ const SpotForm = ({ spot, formType }) => {
                 }
             ]
         }
-        console.log("THIS IS WHAT WE'RE GOING TO BE SENDING TO THE BACKEND TO BE CREATED", spot)
+
         if (formType === 'Update your Spot') {
             const editSpot = await dispatch(thunkEditSpot(spot))
-            console.log("THIS HAPPENS AFTER WE WAITED FOR THE DISPATCH TO")
+
             spot = editSpot
         } else if (formType === 'Create a new Spot') {
             const newSpot = await dispatch(thunkCreateSpot(spot))
             spot = newSpot
         }
-
+    
 
         if (!url) {
             // spot.errors.previewImage = "Preview image is required"
@@ -84,7 +84,7 @@ const SpotForm = ({ spot, formType }) => {
             err.previewImage = "Preview image is required"
 
         }
-
+        
         if (urlTwo) {
             if(!urlTwo.endsWith('.jpg')) {
                 if (!urlTwo.endsWith('.jpeg')) {
@@ -127,10 +127,10 @@ const SpotForm = ({ spot, formType }) => {
     return (
         <div className='form-container'>
         <form onSubmit={handleSubmit}>
-            <div>
-                
-            </div>
+            <div className='insideForm-container'>
+            
             <h2>{formType}</h2>
+
             <h3>Wheres your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
             <div className='errors'>{errors.country}</div>
@@ -231,6 +231,7 @@ const SpotForm = ({ spot, formType }) => {
             <label>
                 <h3>Liven up your spot with photos</h3>
                 <p>Submit a link to at least one photo to publish your spot.</p>
+                <div className='image-cont'>
                     <div className='errors'>{customErr.previewImage}</div>
                     <input 
                     placeholder ='Preview Image URL'
@@ -263,8 +264,11 @@ const SpotForm = ({ spot, formType }) => {
                     value={urlFive}
                     onChange={(e) => setUrlFive(e.target.value)}
                     />
+                    </div>
             </label>
+
             <button type="submit" className='spot-button'>Create Spot</button>
+            </div>
         </form>
         </div>
     )

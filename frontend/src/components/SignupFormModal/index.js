@@ -47,7 +47,7 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div className='signup'>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -119,7 +119,7 @@ function SignupFormModal() {
       password.length < 6 || 
       !confirmPassword.length}>Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

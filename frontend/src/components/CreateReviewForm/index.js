@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { thunkCreateReview } from '../../store/review';
-import { thunkSingleSpot } from '../../store/spot';
+import { thunkCreateReview, thunkAllReviewsSpot } from '../../store/review';
 import './CreateReviewForm.css';
 import { useModal } from "../../context/Modal";
+import { thunkSingleSpot } from '../../store/spot';
 
 const ReviewForm = ({disabled, spotId}) => {
     const dispatch = useDispatch();
@@ -23,12 +23,14 @@ const ReviewForm = ({disabled, spotId}) => {
         console.log(spotId)
         
         const newReview = await dispatch(thunkCreateReview(revObj))
+        
         if (newReview.errors) {
             setErrors(newReview.errors)
         } else {
-            closeModal()
             dispatch(thunkSingleSpot(spotId))
-        }
+            dispatch(thunkAllReviewsSpot(spotId))
+            closeModal()
+        }   
     }    
 
     return (
@@ -36,6 +38,7 @@ const ReviewForm = ({disabled, spotId}) => {
                 <form onSubmit={handleSubmit}>
                 <h1>How was your stay?</h1>
                 <textarea 
+                className='review-input'
                 placeholder='Leave your review here...'
                 type='text'
                 value={rev}
@@ -57,7 +60,7 @@ const ReviewForm = ({disabled, spotId}) => {
                  <div
             className={stars >= 2 ? "filled" : "empty"}
             onMouseEnter={() => { if (!disabled) setStars(2)} }
-            onMouseLeave={() => { if (!disabled) setStars(stars)} }
+            onMouseLeave={() => { if (!disabled) setStars(2)} }
             onClick={() => { if (!disabled) parseInt(2)} }
             // value={stars}
             >
@@ -66,7 +69,7 @@ const ReviewForm = ({disabled, spotId}) => {
                 <div
             className={stars >= 3? "filled" : "empty"}
             onMouseEnter={() => { if (!disabled) setStars(3)} }
-            onMouseLeave={() => { if (!disabled) setStars(stars)} }
+            onMouseLeave={() => { if (!disabled) setStars(3)} }
             onClick={() => { if (!disabled) parseInt(3)} }
             // value={stars}
             >

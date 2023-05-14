@@ -10,3 +10,17 @@
     display: flex;
     margin-right: 4px;
   }
+
+  form {
+    margin-left: 5px;
+  }
+  
+
+  .review-input {
+    background-color: lavender;
+    color: #6247aa;
+    gap: 5px;
+    border: 2px solid lavender;
+    border-radius: 5px;
+    width: 300px
+  }
