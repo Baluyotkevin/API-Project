@@ -18,8 +18,8 @@
 }
 
 .preview-image img {
-    width: 222px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
 }
 
 .spotDetails-container {
