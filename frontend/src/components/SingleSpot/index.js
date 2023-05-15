@@ -133,7 +133,7 @@ function DisplaySingleSpot() {
                 </div>
         <div className='reviews-container'>
 
-            {!Object.values(allReviews).length ? 'Be the first to post a review!' : Object.values(allReviews).reverse().map(review => {
+            {!Object.values(allReviews).length && singleSpot.ownerId !== currUser?.id ? 'Be the first to post a review!' : Object.values(allReviews).reverse().map(review => {
                 const date = review?.createdAt?.slice(5, 7)
                 const month = checkDate(date)
                 return (
