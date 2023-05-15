@@ -22,10 +22,6 @@
     height: 150px;
 }
 
-.preview-image:hover {
-    visibility: visible;
-}
-
 .spotDetails-container {
     display: grid;
     grid-template-columns: 1fr 1fr;

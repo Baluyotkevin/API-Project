@@ -8,7 +8,9 @@
 }
 
 .airbnbLogo {
-    width: 150px;
+    width: 120px;
+    height: 75px;
+    padding-left: 20px;
 }
 
 .spotCreator {

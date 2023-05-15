@@ -20,7 +20,6 @@ const ReviewForm = ({disabled, spotId}) => {
             review: rev,
             stars: stars
         }
-        console.log(spotId)
         
         const newReview = await dispatch(thunkCreateReview(revObj))
         

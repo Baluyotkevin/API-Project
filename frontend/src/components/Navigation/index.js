@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
-import AirbnbLogo from '../images/airbnbLogo.png'
+import RelaxLogo from '../images/relax-icon-14.jpg'
 
 
 function Navigation({ isLoaded }){
@@ -12,7 +12,7 @@ function Navigation({ isLoaded }){
   return (
     <ul className='nav-list'>
       <li className="nav-logo"> 
-        <NavLink exact to='/'><img className='airbnbLogo' src={AirbnbLogo}/></NavLink> 
+        <NavLink exact to='/'><img className='airbnbLogo' src={RelaxLogo}/></NavLink> 
       </li>
 
          <div className='spotCreator'>

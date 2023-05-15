@@ -11,7 +11,7 @@ const DeleteReview = ({reviewId}) => {
     const { closeModal } = useModal();
     
     const handleDelete = (e) => {
-        // e.preventDefault()
+        e.preventDefault()
         // history.push(`/spots/${review.spotId}`)
         dispatch(thunkDeleteReview(reviewId.id))
         dispatch(thunkSingleSpot(reviewId.spotId))

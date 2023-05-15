@@ -24,8 +24,8 @@ function DisplayAllSpots() {
         {Object.values(allSpots).map(oneSpot => {
             return (
                         <Link exact to={`/spots/${oneSpot.id}`}>
-                <div key={oneSpot.id} className='oneSpot-container'>
-                    <div className="preview-image" title={oneSpot.name}>
+                <div key={oneSpot.id} className='oneSpot-container' title={oneSpot.name}>
+                    <div className="preview-image">
                         <img src={oneSpot.previewImage} />
                     </div>
                     <div className='spotDetails-container'>

@@ -149,6 +149,7 @@ function DisplaySingleSpot() {
                             /> : null)
                             
                         }
+                        
                         {!currUser ? null : (currUser.id === review.userId ?
                             <OpenModalButton
                             buttonText='Delete'
