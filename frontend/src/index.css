@@ -21,6 +21,10 @@ body {
     width: 100%;
 }
 
+form > button:hover {
+    cursor: pointer;
+}
+
 
 /* img {
     width: 300px;

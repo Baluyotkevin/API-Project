@@ -136,6 +136,10 @@ div.price-container {
     color: #6247aa;
 }
 
+.button-container > button:hover {
+    cursor: pointer;
+}
+
 .star-container {
     display: flex;
     flex-direction: row;
