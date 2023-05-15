@@ -25,11 +25,11 @@ const DisplayCurrUserSpots = () => {
                         <button className='manageSpot-button'>Create a New Spot</button>
                     </Link>
             </div>
+                <div className='allSpots-allSpots-container'>
             <ul className='allSpots-container'>
                 {Object.values(currUserSpots).map(spot => {
                     console.log(spot)
                     return (
-                        <div className='allSpots-allSpots-container'>
                         <div key={spot.id} className='oneSpot-container'>
                             <div className="preview-image">
                                 <Link exact to={`/spots/${spot.id}`}>
@@ -57,11 +57,11 @@ const DisplayCurrUserSpots = () => {
                         
                         </div>
 
-                        </div>
-                        
-                    )
-                })}
+
+)
+})}
             </ul>
+        </div>
         </div>
     )
 }
